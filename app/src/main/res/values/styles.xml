@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditSearchTextStyle">
+        <!-- незабудьте во время верстки layout_marginHorizontal dp16 -->
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingStart">@dimen/dp16</item>
+        <item name="android:paddingEnd">@dimen/dp48</item>
+        <item name="android:paddingTop">@dimen/dp18</item>
+        <item name="android:paddingBottom">@dimen/dp18</item>
+        <item name="android:background">@drawable/shape_edit_text</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="fontWeight">400</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="dp18">18dp</dimen>
+    <dimen name="sp16">16sp</dimen>
+</resources>
