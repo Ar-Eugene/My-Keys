@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="EditSearchTextStyle">
-        <!-- незабудьте во время верстки layout_marginHorizontal dp16 -->
         <item name="android:singleLine">true</item>
         <item name="android:paddingStart">@dimen/dp16</item>
         <item name="android:paddingEnd">@dimen/dp48</item>
@@ -16,8 +15,26 @@
         <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
-    <dimen name="dp16">16dp</dimen>
-    <dimen name="dp48">48dp</dimen>
-    <dimen name="dp18">18dp</dimen>
-    <dimen name="sp16">16sp</dimen>
+    <style name="EditSearchClearButton">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:src">@drawable/ic_search</item>
+    </style>
+
+    <style name="ApplyButtonStyle">
+        <!-- незабудьте во время верстки layout_marginHorizontal dp16 -->
+        <item name="android:backgroundTint">@color/blue</item>
+        <item name="cornerRadius">@dimen/dp12</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <!--поменять на @string/select в случае если текст "выбрать" в лэйауте-->
+        <item name="android:text">@string/apply</item>
+        <item name="fontWeight">500</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
+
+
+    <string name="apply">Создать группу</string>
 </resources>
