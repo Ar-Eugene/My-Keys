@@ -60,7 +60,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_goneMarginBottom="@dimen/dp24"
-        android:layout_marginHorizontal="@dimen/dp48"/>
+        android:layout_marginHorizontal="@dimen/dp48"
+        android:text = "@string/create_section"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,5 +43,9 @@
         android:id="@+id/newGroupFragment"
         android:name="com.example.mykeys.newGroup.NewGroupFragment"
         android:label="fragment_new_group"
-        tools:layout="@layout/fragment_new_group" />
+        tools:layout="@layout/fragment_new_group" >
+        <action
+            android:id="@+id/action_newGroupFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
