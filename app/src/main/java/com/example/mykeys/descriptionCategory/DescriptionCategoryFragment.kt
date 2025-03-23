@@ -8,12 +8,22 @@ import android.view.ViewGroup
 import com.example.mykeys.databinding.FragmentDescriptionCategoryBinding
 
 class DescriptionCategoryFragment : Fragment() {
-    private lateinit var binding: FragmentDescriptionCategoryBinding
+    private var _binding: FragmentDescriptionCategoryBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDescriptionCategoryBinding.inflate(inflater, container, false)
+        _binding = FragmentDescriptionCategoryBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mykeys.main
+package com.example.mykeys.main.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

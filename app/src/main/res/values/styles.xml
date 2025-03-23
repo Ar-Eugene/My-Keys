@@ -29,12 +29,26 @@
         <item name="textAllCaps">false</item>
         <item name="android:gravity">center</item>
         <!--поменять на @string/select в случае если текст "выбрать" в лэйауте-->
-        <item name="android:text">@string/apply</item>
+
         <item name="fontWeight">500</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/sp16</item>
     </style>
 
+    <style name="RoundedImageViewStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 
-    <string name="apply">Создать группу</string>
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_marginHorizontal">16dp</item>
+        <item name="hintTextColor">@color/blue</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+
+
 </resources>
