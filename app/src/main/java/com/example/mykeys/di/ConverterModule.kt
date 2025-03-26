@@ -9,12 +9,13 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 
-object RepositoryModel {
+object ConverterModule {
 
     @Provides
 
-    fun provideCategoryConverter():CategoryDbConverter{
+    fun provideCategoryConverter(): CategoryDbConverter {
         return CategoryDbConverter()
     }
+
 
 }

@@ -13,5 +13,5 @@ interface CategoryDao {
     fun getCategory(): Flow<List<CategoryEntity>>
 
     @Insert()
-    fun insertCategory(category:CategoryEntity)
+    suspend fun insertCategory(category:CategoryEntity)
 }
