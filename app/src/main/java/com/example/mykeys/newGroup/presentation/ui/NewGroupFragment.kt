@@ -1,36 +1,37 @@
-package com.example.mykeys.main.presentation.ui
+package com.example.mykeys.newGroup.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mykeys.R
-import com.example.mykeys.databinding.FragmentMainBinding
-import com.example.mykeys.main.presentation.viewmodel.MainFragmentViewModel
+import com.example.mykeys.databinding.FragmentNewGroupBinding
+import com.example.mykeys.newGroup.presentation.viewmodel.NewGroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
-    private var _binding: FragmentMainBinding? = null
+class NewGroupFragment : Fragment() {
+
+    private var _binding: FragmentNewGroupBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainFragmentViewModel by viewModels()
+
+    private val viewModel: NewGroupViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentNewGroupBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         clickListener()
-        setupSearchTextWatcher()
 
     }
 
@@ -42,12 +43,14 @@ class MainFragment : Fragment() {
     // наблюдаем за всеми изменениями VM
     private fun observeViewModel() {
         observeNavigationEvent()
-        observeSearchTextWatcher()
     }
 
-    // кнопка для переходан на NewGroupFragment
+    // кнопки для перехода на MainFragment
     private fun navigationToNewGroupFragment() {
         binding.btnApply.setOnClickListener {
+            viewModel.onApplyButtonClick()
+        }
+        binding.backArrow.setOnClickListener {
             viewModel.onApplyButtonClick()
         }
     }
@@ -56,28 +59,9 @@ class MainFragment : Fragment() {
     private fun observeNavigationEvent() {
         viewModel.navigationEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
-                is MainFragmentViewModel.NavigationEvent.NavigationToNewGroupFragment -> {
-                    findNavController().navigate(R.id.action_mainFragment_to_newGroupFragment)
+                is NewGroupViewModel.NavigationEvent.NavigationToMainFragment -> {
+                    findNavController().navigate(R.id.action_newGroupFragment_to_mainFragment)
                 }
-            }
-        }
-    }
-
-    // настройка отслеживания изменений текста
-    private fun setupSearchTextWatcher() {
-        binding.edittextSearch.addTextChangedListener(
-            onTextChanged = { text, _, _, _ ->
-                val searchText = text.toString()
-                viewModel.updateSearchText(searchText)
-            }
-        )
-    }
-
-    // Наблюдение за изменением текста
-    private fun observeSearchTextWatcher() {
-        viewModel.searchText.observe(viewLifecycleOwner) { text ->
-            if (binding.edittextSearch.text.toString() != text) {
-                binding.edittextSearch.setText(text)
             }
         }
     }
@@ -86,4 +70,5 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_new_category" />
     <fragment
         android:id="@+id/newGroupFragment"
-        android:name="com.example.mykeys.newGroup.NewGroupFragment"
+        android:name="com.example.mykeys.newGroup.presentation.ui.NewGroupFragment"
         android:label="fragment_new_group"
         tools:layout="@layout/fragment_new_group" >
         <action
