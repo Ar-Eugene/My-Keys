@@ -1,15 +1,14 @@
 package com.example.mykeys.newGroup.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentNewGroupBinding
-import com.example.mykeys.main.presentation.viewmodel.MainFragmentViewModel
 import com.example.mykeys.newGroup.presentation.viewmodel.NewGroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,9 +45,12 @@ class NewGroupFragment : Fragment() {
         observeNavigationEvent()
     }
 
-    // кнопка для переходан на NewGroupFragment
+    // кнопки для перехода на MainFragment
     private fun navigationToNewGroupFragment() {
         binding.btnApply.setOnClickListener {
+            viewModel.onApplyButtonClick()
+        }
+        binding.backArrow.setOnClickListener {
             viewModel.onApplyButtonClick()
         }
     }
@@ -58,7 +60,7 @@ class NewGroupFragment : Fragment() {
         viewModel.navigationEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is NewGroupViewModel.NavigationEvent.NavigationToMainFragment -> {
-                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.action_newGroupFragment_to_mainFragment)
                 }
             }
         }
