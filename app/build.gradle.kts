@@ -75,6 +75,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
+
     // hilt
     implementation("com.google.dagger:hilt-android:2.56")
     kapt("com.google.dagger:hilt-android-compiler:2.56")

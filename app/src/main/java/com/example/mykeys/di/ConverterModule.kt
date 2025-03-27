@@ -1,6 +1,6 @@
 package com.example.mykeys.di
 
-import com.example.mykeys.newCategory.data.db.сonverter.CategoryDbConverter
+import com.example.mykeys.newGroup.data.db.converter.GroupDbConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,8 +13,8 @@ object ConverterModule {
 
     @Provides
 
-    fun provideCategoryConverter(): CategoryDbConverter {
-        return CategoryDbConverter()
+    fun provideGroupConverter(): GroupDbConverter {
+        return GroupDbConverter()
     }
 
 

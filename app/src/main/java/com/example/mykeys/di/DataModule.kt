@@ -2,8 +2,8 @@ package com.example.mykeys.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.mykeys.newCategory.data.db.CategoryDatabase
-import com.example.mykeys.newCategory.data.db.dao.CategoryDao
+import com.example.mykeys.newGroup.data.db.GroupDatabase
+import com.example.mykeys.newGroup.data.db.dao.GroupDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,16 +17,16 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun room(@ApplicationContext context: Context):CategoryDatabase{
+    fun room(@ApplicationContext context: Context): GroupDatabase {
         return Room.databaseBuilder(
             context,
-            CategoryDatabase::class.java,
-            "category_database"
+            GroupDatabase::class.java,
+            "group_database"
         ).build()
     }
     @Provides
     @Singleton
-    fun getDao(database:CategoryDatabase):CategoryDao{
-        return database.categoryDao()
+    fun getDao(database: GroupDatabase): GroupDao {
+        return database.groupDao()
     }
 }
