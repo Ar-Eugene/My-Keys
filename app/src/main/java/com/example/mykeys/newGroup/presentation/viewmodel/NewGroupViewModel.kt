@@ -1,7 +1,6 @@
 package com.example.mykeys.newGroup.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mykeys.newGroup.domain.interactor.GroupInteractor
@@ -18,35 +17,46 @@ class NewGroupViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _category = MutableStateFlow<List<GroupModel>>(emptyList())
-    var category: StateFlow<List<GroupModel>> = _category
 
-    // LiveData для хранения навигации
-    private val _navigationEvent = MutableLiveData<NavigationEvent>()
-    var navigationEvent: LiveData<NavigationEvent> = _navigationEvent
+    // Для хранения URI изображения
+    private val _selectedImageUri = MutableStateFlow<Uri?>(null)
+    val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
+
+    // Для хранения имени группы
+    private val _groupName = MutableStateFlow("")
 
     init {
         viewModelScope.launch {
             groupInteractor.getGroup().collect { categories ->
-                _category.value=categories
+                _category.value = categories
             }
         }
     }
 
-    // Функция для создания категории
-    fun addCategory(groupModel: GroupModel){
-        viewModelScope.launch {
-            groupInteractor.createGroup(groupModel)
+    // Функция для установки URI изображения
+    fun setImageGroup(uri: Uri) {
+        _selectedImageUri.value = uri
+    }
+
+    // Функция для установки имени группы
+    fun setGroupName(name: String) {
+        _groupName.value = name
+    }
+
+    // Функция для создания группы
+    fun createGroup() {
+        val imageGroup = _selectedImageUri.value?.toString()
+        val name = _groupName.value
+
+        if (name.isNotBlank()) {
+            val newGroup = GroupModel(
+                imageGroup = imageGroup,
+                nameGroup = name
+            )
+
+            viewModelScope.launch {
+                groupInteractor.createGroup(newGroup)
+            }
         }
     }
-
-    // Функция для обработки нажатия кнопки
-    fun onApplyButtonClick(){
-        _navigationEvent.value = NavigationEvent.NavigationToMainFragment
-    }
-
-    //Sealed class для событий навигации
-    sealed class NavigationEvent{
-        object NavigationToMainFragment: NavigationEvent()
-    }
 }
-
