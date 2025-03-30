@@ -34,7 +34,6 @@ class NewGroupFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 binding.cover.setImageURI(uri)
-                binding.cover.background = null
                 viewModel.setImageGroup(uri)
 
                 // Сохранить разрешения для URI
@@ -115,7 +114,7 @@ class NewGroupFragment : Fragment() {
 
     // Слушатель для выбора изображения
     private fun setupCoverClickListener() {
-        binding.coverCircle.setOnClickListener {
+        binding.cover.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
     }
