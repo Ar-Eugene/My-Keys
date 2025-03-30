@@ -1,5 +1,6 @@
 package com.example.mykeys.main.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Collections
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,6 +42,45 @@ class MainFragmentViewModel @Inject constructor(
     // Функция для обновления текста поиска
     fun updateSearchText(text: String) {
         _searchText.value = text
+    }
+
+
+    fun onItemMove(fromPosition: Int, toPosition: Int) {
+        val currentList = _groups.value.toMutableList()
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(currentList, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(currentList, i, i - 1)
+            }
+        }
+
+        // Обновляем позиции в моделях
+        val updatedList = currentList.mapIndexed { index, group ->
+            group.copy(position = index)
+        }
+
+        _groups.value = updatedList
+        viewModelScope.launch {
+            groupInteractor.updateGroupPositions(updatedList)
+        }
+    }
+
+    fun deleteGroup(id: Int) {
+        viewModelScope.launch {
+            try {
+                groupInteractor.deleteGroupById(id)
+                // После удаления обновляем позиции оставшихся элементов
+                val updatedList = _groups.value.mapIndexed { index, group ->
+                    group.copy(position = index)
+                }
+                groupInteractor.updateGroupPositions(updatedList)
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Ошибка при удалении группы", e)
+            }
+        }
     }
 
 }

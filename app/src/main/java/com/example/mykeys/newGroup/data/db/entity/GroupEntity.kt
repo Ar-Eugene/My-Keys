@@ -8,5 +8,6 @@ data class GroupEntity(
     @PrimaryKey(autoGenerate = true)
     val id:Int = 0,
     val imageGroup:String?,
-    val nameGroup:String
+    val nameGroup:String,
+    val position: Int = 0
 )

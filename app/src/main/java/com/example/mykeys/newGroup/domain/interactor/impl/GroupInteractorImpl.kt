@@ -19,4 +19,12 @@ class GroupInteractorImpl @Inject constructor(
         return groupRepository.createGroup(group)
     }
 
+    override suspend fun updateGroupPositions(groups: List<GroupModel>){
+        return groupRepository.updateGroupPositions(groups)
+    }
+
+    override suspend fun deleteGroupById(id: Int){
+        return groupRepository.deleteGroupById(id)
+    }
+
 }

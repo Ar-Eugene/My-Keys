@@ -9,7 +9,8 @@ class GroupDbConverter {
         return GroupModel(
             id = groupEntity.id,
             imageGroup = groupEntity.imageGroup,
-            nameGroup = groupEntity.nameGroup
+            nameGroup = groupEntity.nameGroup,
+            position = groupEntity.position
         )
     }
 
@@ -17,7 +18,8 @@ class GroupDbConverter {
         return GroupEntity(
             id = groupModel.id,
             imageGroup = groupModel.imageGroup,
-            nameGroup = groupModel.nameGroup
+            nameGroup = groupModel.nameGroup,
+            position = groupModel.position
         )
     }
 
