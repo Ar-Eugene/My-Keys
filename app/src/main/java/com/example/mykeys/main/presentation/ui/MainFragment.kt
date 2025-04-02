@@ -12,9 +12,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentMainBinding
+import com.example.mykeys.main.presentation.ItemTouchHelperCallback
 import com.example.mykeys.main.presentation.viewmodel.MainFragmentViewModel
 import com.example.mykeys.newGroup.presentation.GroupAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,13 +72,22 @@ class MainFragment : Fragment() {
         binding.recycler.apply {
             adapter = groupAdapter
             layoutManager = LinearLayoutManager(requireContext())
+
+            // Настройка ItemTouchHelper для drag and drop
+            val callback = ItemTouchHelperCallback(groupAdapter, requireContext())
+            val itemTouchHelper = ItemTouchHelper(callback)
+            itemTouchHelper.attachToRecyclerView(this)
         }
+
+        // Обработчик клика по элементу
         groupAdapter.setOnItemClickListener { group ->
-            Toast.makeText(
-                requireContext(),
-                "Выбрана группа: ${group.nameGroup}",
-                Toast.LENGTH_SHORT
-            ).show()
+            val action = MainFragmentDirections.actionMainFragmentToDescriptionCategoryFragment(group)
+            findNavController().navigate(action)
+        }
+
+        // Обработчик перемещения элементов
+        groupAdapter.setOnItemMoveListener { fromPosition, toPosition ->
+            viewModel.onItemMove(fromPosition, toPosition)
         }
     }
 

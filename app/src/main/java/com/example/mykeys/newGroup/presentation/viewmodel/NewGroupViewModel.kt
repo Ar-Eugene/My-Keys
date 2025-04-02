@@ -45,7 +45,7 @@ class NewGroupViewModel @Inject constructor(
 
     // Функция для создания группы
     fun createGroup() {
-        val imageGroup = _selectedImageUri.value?.toString()
+        val imageGroup = _selectedImageUri.value
         val name = _groupName.value
 
         if (name.isNotBlank()) {

@@ -1,6 +1,5 @@
 package com.example.mykeys.newGroup.presentation
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,14 +7,27 @@ import com.bumptech.glide.Glide
 import com.example.mykeys.R
 import com.example.mykeys.databinding.ItemGroupBinding
 import com.example.mykeys.newGroup.domain.models.GroupModel
+import java.util.Collections
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
     private var groups: List<GroupModel> = emptyList()
     private var onItemClickListener: ((GroupModel) -> Unit)? = null
+    private var onItemMoveListener: ((Int, Int) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (GroupModel) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setOnItemMoveListener(listener: (Int, Int) -> Unit) {
+        onItemMoveListener = listener
+    }
+
+    fun onItemMove(fromPosition: Int, toPosition: Int) {
+        val mutableGroups = groups.toMutableList()
+        Collections.swap(mutableGroups, fromPosition, toPosition)
+        groups = mutableGroups
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     inner class GroupViewHolder(private val binding: ItemGroupBinding) :
@@ -34,11 +46,11 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
             binding.companyName.text = group.nameGroup
 
             /// Загрузка изображения с помощью Glide
-            if (group.imageGroup.isNullOrEmpty()) {
+            if (group.imageGroup == null) {
                 binding.companyIcon.setImageResource(R.drawable.placeholder_32px)
             } else {
                 Glide.with(binding.root.context)
-                    .load(Uri.parse(group.imageGroup))
+                    .load(group.imageGroup)
                     .error(R.drawable.placeholder_32px)
                     .into(binding.companyIcon)
             }

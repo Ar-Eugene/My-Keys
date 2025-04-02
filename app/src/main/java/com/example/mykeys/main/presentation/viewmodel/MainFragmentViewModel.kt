@@ -64,6 +64,8 @@ class MainFragmentViewModel @Inject constructor(
 
         _groups.value = updatedList
         viewModelScope.launch {
+            Log.d("MainFragmentViewModel", "Updating positions in DB: $updatedList")
+
             groupInteractor.updateGroupPositions(updatedList)
         }
     }
