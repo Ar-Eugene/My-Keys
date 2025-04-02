@@ -21,6 +21,17 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun createGroup(group: GroupModel) {
         groupDao.insertGroup(groupDbConverter.mapModelToEntity(group))
+//        val entity = groupDbConverter.mapModelToEntity(group)
+//        groupDao.insertGroup(entity)
+    }
+
+    override suspend fun updateGroupPositions(groups: List<GroupModel>){
+        val entities = groups.map { groupDbConverter.mapModelToEntity(it) }
+        groupDao.updatePositions(entities)
+    }
+
+    override suspend fun deleteGroupById(id: Int){
+        groupDao.deleteGroupById(id)
     }
 
 }

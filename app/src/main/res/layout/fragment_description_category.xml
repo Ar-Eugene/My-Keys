@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".descriptionCategory.DescriptionCategoryFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".newGroup.presentation.ui.NewGroupFragment">
 
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/borderHeaderGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint = "@color/black"
+        app:srcCompat="@drawable/back_arrow_model" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/borderHeaderGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="56dp" />
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/dashed_border"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cover_placeholder"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borderHeaderGuideline"
+        app:shapeAppearanceOverlay="@style/RoundedImageViewStyle" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/name"
+        style="@style/CustomTextInputLayout"
+        android:layout_marginTop="@dimen/dp48"
+        android:hint="@string/name_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover"
+        app:boxStrokeColor="@color/selector_edit"/>
 
-</FrameLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
