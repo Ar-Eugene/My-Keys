@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +17,9 @@ import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentMainBinding
 import com.example.mykeys.main.presentation.ItemTouchHelperCallback
 import com.example.mykeys.main.presentation.viewmodel.MainFragmentViewModel
+import com.example.mykeys.newGroup.domain.models.GroupModel
 import com.example.mykeys.newGroup.presentation.GroupAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -81,13 +82,14 @@ class MainFragment : Fragment() {
 
         // Обработчик клика по элементу
         groupAdapter.setOnItemClickListener { group ->
-            val action = MainFragmentDirections.actionMainFragmentToDescriptionCategoryFragment(group)
+            val action =
+                MainFragmentDirections.actionMainFragmentToDescriptionCategoryFragment(group)
             findNavController().navigate(action)
         }
 
-        // Обработчик перемещения элементов
-        groupAdapter.setOnItemMoveListener { fromPosition, toPosition ->
-            viewModel.onItemMove(fromPosition, toPosition)
+        // Обработчик перемещения элементов по горизонтали + удаление
+        groupAdapter.setOnItemSwipedListener { group, position ->
+            showDeleteTrackDialog(group)
         }
     }
 
@@ -109,6 +111,24 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    // уведомление кот появляется перед удалением элемента
+    private fun showDeleteTrackDialog(track: GroupModel) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.delete_chapter))
+            .setMessage(getString(R.string.delete_charter_message))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                // Отменяем удаление и возвращаем элемент на место
+                groupAdapter.notifyDataSetChanged()
+                dialog.dismiss()
+            }
+            .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
+                // Удаляем элемент
+                viewModel.deleteGroup(track)
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun onDestroyView() {

@@ -9,7 +9,6 @@ interface GroupInteractor {
 
     suspend fun createGroup(group: GroupModel)
 
-    suspend fun updateGroupPositions(groups: List<GroupModel>)
-
     suspend fun deleteGroupById(id: Int)
+
 }

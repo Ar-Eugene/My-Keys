@@ -7,32 +7,40 @@ import com.bumptech.glide.Glide
 import com.example.mykeys.R
 import com.example.mykeys.databinding.ItemGroupBinding
 import com.example.mykeys.newGroup.domain.models.GroupModel
-import java.util.Collections
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
-
     private var groups: List<GroupModel> = emptyList()
     private var onItemClickListener: ((GroupModel) -> Unit)? = null
-    private var onItemMoveListener: ((Int, Int) -> Unit)? = null
+    private var onItemSwipedListener: ((GroupModel, Int) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (GroupModel) -> Unit) {
         onItemClickListener = listener
     }
 
-    fun setOnItemMoveListener(listener: (Int, Int) -> Unit) {
-        onItemMoveListener = listener
+    fun setOnItemSwipedListener(listener: (GroupModel, Int) -> Unit) {
+        onItemSwipedListener = listener
     }
 
-    fun onItemMove(fromPosition: Int, toPosition: Int) {
-        val mutableGroups = groups.toMutableList()
-        Collections.swap(mutableGroups, fromPosition, toPosition)
-        groups = mutableGroups
-        notifyItemMoved(fromPosition, toPosition)
+    fun onItemSwiped(position: Int, isDeleted: Boolean) {
+        if (position != RecyclerView.NO_POSITION && position < groups.size) {
+            val group = groups[position]
+            if (isDeleted) {
+                // Если элемент действительно удален, обновляем список
+                val newList = groups.toMutableList()
+                newList.removeAt(position)
+                groups = newList
+                notifyItemRemoved(position)
+            } else {
+                // Если элемент не удален, возвращаем его на место
+                notifyItemChanged(position)
+                // Вызываем слушателя для показа диалога
+                onItemSwipedListener?.invoke(group, position)
+            }
+        }
     }
 
     inner class GroupViewHolder(private val binding: ItemGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         init {
             binding.root.setOnClickListener {
                 val position = adapterPosition
@@ -44,7 +52,6 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
         fun bind(group: GroupModel) {
             binding.companyName.text = group.nameGroup
-
             /// Загрузка изображения с помощью Glide
             if (group.imageGroup == null) {
                 binding.companyIcon.setImageResource(R.drawable.placeholder_32px)
@@ -76,5 +83,4 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
         groups = newList
         notifyDataSetChanged()
     }
-
 }
