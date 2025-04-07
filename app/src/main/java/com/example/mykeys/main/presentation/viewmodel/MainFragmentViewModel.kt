@@ -22,8 +22,12 @@ class MainFragmentViewModel @Inject constructor(
     var searchText: LiveData<String> = _searchText
 
     // StateFlow для хранения списка групп
-    private val _groups = MutableStateFlow<List<GroupModel>>(emptyList())
-    val groups: StateFlow<List<GroupModel>> = _groups
+    private val _allGroups = MutableStateFlow<List<GroupModel>>(emptyList())
+    val allGroups: StateFlow<List<GroupModel>> = _allGroups
+
+    private val _filterGroups = MutableLiveData<List<GroupModel>>(emptyList())
+    val filterGroups:LiveData<List<GroupModel>> = _filterGroups
+
 
     init {
         loadGroups()
@@ -32,7 +36,9 @@ class MainFragmentViewModel @Inject constructor(
     private fun loadGroups() {
         viewModelScope.launch {
             groupInteractor.getGroup().collect { groupList ->
-                _groups.value = groupList
+                _allGroups.value = groupList
+                filterGroups(_searchText.value ?: "")
+
             }
         }
     }
@@ -40,6 +46,18 @@ class MainFragmentViewModel @Inject constructor(
     // Функция для обновления текста поиска
     fun updateSearchText(text: String) {
         _searchText.value = text
+        filterGroups(text)
+    }
+
+    private fun filterGroups (text: String){
+        if(text.isEmpty()){
+            // если запрос пустой все группы
+            _filterGroups.value = _allGroups.value
+        }else{
+            _filterGroups.value = _allGroups.value.filter { group ->
+                group.nameGroup.contains(text, ignoreCase = true)
+            }
+        }
     }
 
     // Функция для удаления раздела

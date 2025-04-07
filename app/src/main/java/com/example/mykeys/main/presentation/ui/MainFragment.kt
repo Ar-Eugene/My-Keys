@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
         setupRecyclerView()
         observeSearchTextWatcher()
         observeGroups()
+        setupClearButton()
     }
 
     // кнопка для перехода на NewGroupFragment
@@ -61,6 +62,7 @@ class MainFragment : Fragment() {
     private fun setupSearchTextWatcher() {
         binding.edittextSearch.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
+                updateClearButtonIcon(text)
                 val searchText = text.toString()
                 viewModel.updateSearchText(searchText)
             }
@@ -74,7 +76,7 @@ class MainFragment : Fragment() {
             adapter = groupAdapter
             layoutManager = LinearLayoutManager(requireContext())
 
-            // Настройка ItemTouchHelper для drag and drop
+            // Настройка ItemTouchHelper для swape
             val callback = ItemTouchHelperCallback(groupAdapter, requireContext())
             val itemTouchHelper = ItemTouchHelper(callback)
             itemTouchHelper.attachToRecyclerView(this)
@@ -106,15 +108,15 @@ class MainFragment : Fragment() {
     private fun observeGroups() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.groups.collect { groups ->
+                viewModel.filterGroups.observe(viewLifecycleOwner) { groups ->
                     groupAdapter.submitList(groups)
                 }
             }
         }
     }
 
-    // уведомление кот появляется перед удалением элемента
-    private fun showDeleteTrackDialog(track: GroupModel) {
+    // уведомление которое появляется перед удалением элемента
+    private fun showDeleteTrackDialog(group: GroupModel) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.delete_chapter))
             .setMessage(getString(R.string.delete_charter_message))
@@ -125,10 +127,34 @@ class MainFragment : Fragment() {
             }
             .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
                 // Удаляем элемент
-                viewModel.deleteGroup(track)
+                viewModel.deleteGroup(group)
                 dialog.dismiss()
             }
             .show()
+    }
+
+    // обновление иконки кнопки
+    private fun updateClearButtonIcon(text: CharSequence?) {
+        binding.buttonClear.setImageResource(
+            if (text?.isNotEmpty() == true) {
+                R.drawable.edit_text_clear_button
+            } else {
+                R.drawable.ic_search
+            }
+        )
+    }
+
+    // настройка кнопки очистки поиска
+    private fun setupClearButton() {
+        binding.buttonClear.setOnClickListener {
+            // Если поле поиска не пустое, очищаем его
+            if (binding.edittextSearch.text.isNotEmpty()) {
+                binding.edittextSearch.setText("")
+                viewModel.updateSearchText("")
+            }
+        }
+        // Инициализация иконки кнопки
+        updateClearButtonIcon(binding.edittextSearch.text)
     }
 
     override fun onDestroyView() {
