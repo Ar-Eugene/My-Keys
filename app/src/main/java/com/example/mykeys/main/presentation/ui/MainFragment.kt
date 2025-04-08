@@ -67,7 +67,7 @@ class MainFragment : Fragment() {
 
     // кнопка для перехода на NewGroupFragment
     private fun navigationToNewGroupFragment() {
-        binding.btnApply.setOnClickListener {
+        binding.btnFab.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_newGroupFragment)
         }
     }
@@ -205,7 +205,7 @@ class MainFragment : Fragment() {
     override fun onPause() {
         super.onPause()
 
-        // Если экран покидается — отменяем таймер, возвращаем элемент и скрываем Snackbar
+        // Если экран уходит — отменяем таймер, возвращаем элемент и скрываем Snackbar
         if (pendingGroupForDelete != null && !isUndoCancelled) {
             deleteTimer?.cancel()
             groupAdapter.restoreLastRemovedItem()
