@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName ="group_room" )
 data class GroupEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id:Int = 0,
-    val imageGroup:Int,
-    val nameGroup:String
+    val imageGroup:String? = null,
+    val nameGroup:String,
+    val position: Int = 0
 )

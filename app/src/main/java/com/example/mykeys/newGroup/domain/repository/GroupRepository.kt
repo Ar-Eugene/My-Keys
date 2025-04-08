@@ -8,4 +8,7 @@ interface GroupRepository {
     fun getGroup(): Flow<List<GroupModel>>
 
     suspend fun createGroup(group: GroupModel)
+
+    suspend fun deleteGroupById(id: Int)
+
 }

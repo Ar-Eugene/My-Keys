@@ -23,4 +23,8 @@ class GroupRepositoryImpl @Inject constructor(
         groupDao.insertGroup(groupDbConverter.mapModelToEntity(group))
     }
 
+    override suspend fun deleteGroupById(id: Int) {
+        groupDao.deleteGroupById(id)
+    }
+
 }
