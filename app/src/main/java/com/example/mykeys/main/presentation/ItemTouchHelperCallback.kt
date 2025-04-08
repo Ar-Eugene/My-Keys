@@ -1,9 +1,16 @@
 package com.example.mykeys.main.presentation
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mykeys.R
 import com.example.mykeys.newGroup.presentation.GroupAdapter
 
 class ItemTouchHelperCallback(
@@ -68,6 +75,58 @@ class ItemTouchHelperCallback(
             view.alpha = 1.0f
             view.translationX = 0f
         }
+    }
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE && dX < 0) {
+            val itemView = viewHolder.itemView
+            val cornerRadius = 48f // радиус скругления
+
+            val rectF = RectF(
+                itemView.right.toFloat() + dX,
+                itemView.top.toFloat(),
+                itemView.right.toFloat(),
+                itemView.bottom.toFloat()
+            )
+
+            val path = Path()
+            val radii = floatArrayOf(
+                0f, 0f,            // top-left
+                cornerRadius, cornerRadius,  // top-right
+                cornerRadius, cornerRadius,  // bottom-right
+                0f, 0f             // bottom-left
+            )
+            path.addRoundRect(rectF, radii, Path.Direction.CW)
+
+            val paint = Paint().apply {
+                color = ContextCompat.getColor(context, R.color.red)
+                isAntiAlias = true
+            }
+
+            c.drawPath(path, paint)
+
+            // Рисуем иконку удаления поверх
+            val icon = ContextCompat.getDrawable(context, R.drawable.delete)
+            icon?.let {
+                val iconMargin = (itemView.height - it.intrinsicHeight) / 2
+                val iconTop = itemView.top + iconMargin
+                val iconBottom = iconTop + it.intrinsicHeight
+                val iconLeft = itemView.right - iconMargin - it.intrinsicWidth
+                val iconRight = itemView.right - iconMargin
+
+                it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                it.draw(c)
+            }
+        }
+
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
 }

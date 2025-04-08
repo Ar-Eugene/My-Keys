@@ -1,9 +1,11 @@
 package com.example.mykeys.main.presentation.ui
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +21,7 @@ import com.example.mykeys.main.presentation.ItemTouchHelperCallback
 import com.example.mykeys.main.presentation.viewmodel.MainFragmentViewModel
 import com.example.mykeys.newGroup.domain.models.GroupModel
 import com.example.mykeys.newGroup.presentation.GroupAdapter
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,6 +33,11 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainFragmentViewModel by viewModels()
     private lateinit var groupAdapter: GroupAdapter
+
+    private var deleteTimer: CountDownTimer? = null
+    private var pendingGroupForDelete: GroupModel? = null
+    private var isUndoCancelled = false
+    private var snackbar: Snackbar? = null // Выносим snackbar в переменную класса
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +56,13 @@ class MainFragment : Fragment() {
         observeSearchTextWatcher()
         observeGroups()
         setupClearButton()
+
+        groupAdapter.setOnItemSwipedListener { group, position ->
+            val removedGroup = groupAdapter.removeItemTemporarily(position)
+            removedGroup?.let {
+                showDeleteTrackDialog(it) // запускаем обратный отсчёт и возможность отмены
+            }
+        }
     }
 
     // кнопка для перехода на NewGroupFragment
@@ -91,7 +105,11 @@ class MainFragment : Fragment() {
 
         // Обработчик перемещения элементов по горизонтали + удаление
         groupAdapter.setOnItemSwipedListener { group, position ->
-            showDeleteTrackDialog(group)
+            val removedGroup = groupAdapter.removeItemTemporarily(position)
+            removedGroup?.let {
+                showDeleteTrackDialog(it)
+            }
+
         }
     }
 
@@ -117,20 +135,47 @@ class MainFragment : Fragment() {
 
     // уведомление которое появляется перед удалением элемента
     private fun showDeleteTrackDialog(group: GroupModel) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.delete_chapter))
-            .setMessage(getString(R.string.delete_charter_message))
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-                // Отменяем удаление и возвращаем элемент на место
-                groupAdapter.notifyDataSetChanged()
-                dialog.dismiss()
+        snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_INDEFINITE)
+        val snackbarLayout = snackbar?.view as? Snackbar.SnackbarLayout
+        snackbarLayout?.setPadding(0, 0, 0, 0)
+
+        val customView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.snackbar_delete, null)
+
+        val messageText = customView.findViewById<TextView>(R.id.snackbar_text)
+        val cancelButton = customView.findViewById<TextView>(R.id.snackbar_cancel)
+
+        var countdown = 5
+        isUndoCancelled = false
+        pendingGroupForDelete = group
+
+        deleteTimer = object : CountDownTimer(5000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                countdown--
+                messageText.text = getString(R.string.delete_chapter) + " (${countdown})"
             }
-            .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
-                // Удаляем элемент
-                viewModel.deleteGroup(group)
-                dialog.dismiss()
+
+            override fun onFinish() {
+                if (!isUndoCancelled) {
+                    viewModel.deleteGroup(group)
+                }
+                pendingGroupForDelete = null
+                snackbar?.dismiss()
             }
-            .show()
+        }
+
+        cancelButton.setOnClickListener {
+            isUndoCancelled = true
+            deleteTimer?.cancel()
+            groupAdapter.restoreLastRemovedItem()
+            pendingGroupForDelete = null
+            snackbar?.dismiss()
+        }
+
+        snackbarLayout?.removeAllViews()
+        snackbarLayout?.addView(customView)
+        snackbar?.show()
+        deleteTimer?.start()
     }
 
     // обновление иконки кнопки
@@ -155,6 +200,21 @@ class MainFragment : Fragment() {
         }
         // Инициализация иконки кнопки
         updateClearButtonIcon(binding.edittextSearch.text)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Если экран покидается — отменяем таймер, возвращаем элемент и скрываем Snackbar
+        if (pendingGroupForDelete != null && !isUndoCancelled) {
+            deleteTimer?.cancel()
+            groupAdapter.restoreLastRemovedItem()
+            pendingGroupForDelete = null
+            snackbar?.dismiss() // Гарантированно скрываем Snackbar
+        } else {
+            // На всякий случай, если pendingGroupForDelete == null, но Snackbar виден
+            snackbar?.dismiss()
+        }
     }
 
     override fun onDestroyView() {

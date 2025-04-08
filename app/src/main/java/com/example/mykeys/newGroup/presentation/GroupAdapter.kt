@@ -12,6 +12,8 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
     private var groups: List<GroupModel> = emptyList()
     private var onItemClickListener: ((GroupModel) -> Unit)? = null
     private var onItemSwipedListener: ((GroupModel, Int) -> Unit)? = null
+    private var lastRemovedGroup: GroupModel? = null
+    private var lastRemovedPosition: Int = -1
 
     fun setOnItemClickListener(listener: (GroupModel) -> Unit) {
         onItemClickListener = listener
@@ -19,6 +21,33 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
     fun setOnItemSwipedListener(listener: (GroupModel, Int) -> Unit) {
         onItemSwipedListener = listener
+    }
+
+    fun removeItemTemporarily(position: Int): GroupModel? {
+        if (position != RecyclerView.NO_POSITION && position < groups.size) {
+            val group = groups[position]
+            lastRemovedGroup = group
+            lastRemovedPosition = position
+
+            val newList = groups.toMutableList()
+            newList.removeAt(position)
+            groups = newList
+            notifyItemRemoved(position)
+
+            return group
+        }
+        return null
+    }
+
+    fun restoreLastRemovedItem() {
+        lastRemovedGroup?.let { group ->
+            val newList = groups.toMutableList()
+            newList.add(lastRemovedPosition.coerceAtMost(newList.size), group)
+            groups = newList
+            notifyItemInserted(lastRemovedPosition)
+        }
+        lastRemovedGroup = null
+        lastRemovedPosition = -1
     }
 
     fun onItemSwiped(position: Int, isDeleted: Boolean) {
