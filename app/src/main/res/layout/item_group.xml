@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@color/fab_color">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/icon_container"
@@ -48,6 +49,7 @@
             app:layout_constraintEnd_toStartOf="@+id/arrow_forward"
             app:layout_constraintStart_toEndOf="@+id/icon_container"
             app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"
             android:gravity="center"
             tools:text="Название группы" />
 

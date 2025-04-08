@@ -2,7 +2,6 @@ package com.example.mykeys.main.presentation
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
@@ -113,7 +112,7 @@ class ItemTouchHelperCallback(
             c.drawPath(path, paint)
 
             // Рисуем иконку удаления поверх
-            val icon = ContextCompat.getDrawable(context, R.drawable.delete)
+            val icon = ContextCompat.getDrawable(context, R.drawable.ic_delete)
             icon?.let {
                 val iconMargin = (itemView.height - it.intrinsicHeight) / 2
                 val iconTop = itemView.top + iconMargin

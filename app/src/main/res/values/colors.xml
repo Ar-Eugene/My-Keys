@@ -11,4 +11,7 @@
     <color name="light_gray">#E6E8EB</color>
     <color name="transparent">#00000000</color>
     <color name="red">#E66767</color>
+    <color name="gren">#116466</color>
+    <color name="castom">#5D7570</color>
+    <color name="fab_color">#FFCB9A</color>
 </resources>
