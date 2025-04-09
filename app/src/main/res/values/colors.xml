@@ -10,8 +10,11 @@
     <color name="blue">#2436BF</color>
     <color name="light_gray">#E6E8EB</color>
     <color name="transparent">#00000000</color>
-    <color name="red">#E66767</color>
-    <color name="gren">#116466</color>
-    <color name="castom">#5D7570</color>
-    <color name="fab_color">#FFCB9A</color>
+    <color name="delete_group_color">#E7B360</color>
+    <color name="green_background">#116466</color>
+    <color name="card_item_color">#E6F0EF</color>
+    <color name="fab_color">#FFB627</color>
+    <color name="item_text_color">#2C3531</color>
+    <color name="actionbar_color">#0E3B43</color>
+    <color name="snack_background_color">#E7B360</color>
 </resources>

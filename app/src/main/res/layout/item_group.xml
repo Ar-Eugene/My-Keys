@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@color/fab_color">
+        android:background="@color/card_item_color">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/icon_container"
@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0"
-            app:strokeColor="@color/light_gray"
+            app:strokeColor="@color/item_text_color"
             app:strokeWidth="1dp">
 
             <ImageView
@@ -45,13 +45,15 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/arrow_forward"
             app:layout_constraintStart_toEndOf="@+id/icon_container"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/white"
-            android:gravity="center"
-            tools:text="Название группы" />
+            android:layout_marginStart="@dimen/dp16"
+            android:textColor="@color/item_text_color"
+            tools:text="@string/name_section"
+            android:textSize="@dimen/sp16"
+            android:fontFamily ="@font/ys_display_medium"
+            android:textAllCaps="true"/>
 
         <ImageView
             android:id="@+id/arrow_forward"

@@ -105,7 +105,7 @@ class ItemTouchHelperCallback(
             path.addRoundRect(rectF, radii, Path.Direction.CW)
 
             val paint = Paint().apply {
-                color = ContextCompat.getColor(context, R.color.red)
+                color = ContextCompat.getColor(context, R.color.delete_group_color)
                 isAntiAlias = true
             }
 

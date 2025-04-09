@@ -9,8 +9,6 @@
     <string name="create_section">Создать раздел</string>
     <string name="name_section">Название раздела</string>
     <string name="delete_chapter">Удалить раздел</string>
-    <string name="delete_charter_message">Вы уверены, что хотите удалить раздел?</string>
     <string name="cancel">Отменить</string>
-    <string name="delete">Удалить</string>
     <string name="my_fab">my_fab</string>
 </resources>
