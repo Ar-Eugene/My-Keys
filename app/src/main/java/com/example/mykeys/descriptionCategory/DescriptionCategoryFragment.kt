@@ -47,7 +47,7 @@ class DescriptionCategoryFragment : Fragment() {
         val groupModel = args.groupModel
 
         // Подставляем текст
-        binding.name.text = groupModel?.nameGroup
+        binding.nameCategory.text = groupModel?.nameGroup
 
         // Загрузка изображения
         loadGroupImage(groupModel?.imageGroup)

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MyKeys" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.MyKeys" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimaryVariant">@color/actionbar_color</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>

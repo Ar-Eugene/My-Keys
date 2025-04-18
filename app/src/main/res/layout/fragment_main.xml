@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/green_background"
     tools:context=".main.presentation.ui.MainFragment">
 
     <EditText
@@ -33,7 +34,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dp16"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/btn_apply"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edittext_search"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="-20dp">
@@ -45,23 +46,20 @@
             android:clipToPadding="false"
             tools:itemCount="7"
             tools:listitem="@layout/item_group" />
-
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btn_apply"
-        style="@style/ApplyButtonStyle"
-        android:layout_width="0dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp8"
-        android:paddingVertical="@dimen/dp20"
-        android:visibility="visible"
+        android:contentDescription="@string/my_fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_goneMarginBottom="@dimen/dp24"
-        android:layout_marginHorizontal="@dimen/dp48"
-        android:text = "@string/create_section"/>
-
+        android:layout_marginBottom="@dimen/_70dp"
+        android:layout_marginEnd="@dimen/dp16"
+        android:src="@drawable/ic_add_group"
+        app:backgroundTint="@color/fab_color"
+        app:tint="@android:color/white"
+        app:fabCustomSize="@dimen/_64dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

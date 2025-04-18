@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".newGroup.presentation.ui.NewGroupFragment">
 
@@ -13,23 +14,21 @@
         app:layout_constraintBottom_toTopOf="@+id/borderHeaderGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint = "@color/black"
+        app:tint = "@color/fab_color"
         app:srcCompat="@drawable/back_arrow_model" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/borderHeaderGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="56dp" />
+        app:layout_constraintGuide_begin="36dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="26dp"
         android:background="@drawable/dashed_border"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
@@ -41,20 +40,93 @@
         app:shapeAppearanceOverlay="@style/RoundedImageViewStyle" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name"
-        style="@style/CustomTextInputLayout"
-        android:layout_marginTop="@dimen/dp48"
+        android:id="@+id/name_category"
+        style="@style/CustomTextInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/name_section"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover"
-        app:boxStrokeColor="@color/selector_edit">
-
+        app:layout_constraintTop_toBottomOf="@id/cover"
+        android:layout_marginTop="@dimen/dp24">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="58dp"
+            android:ellipsize="end"
+            android:hint="@string/put_category"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/item_text_color"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_email"
+        style="@style/CustomTextInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/your_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_category">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="58dp"
+            android:ellipsize="end"
+            android:hint="@string/put_email"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/item_text_color"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_password"
+        style="@style/CustomTextInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/your_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="58dp"
+            android:ellipsize="end"
+            android:hint="@string/put_password"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/item_text_color"
+            android:textCursorDrawable="@drawable/custom_cursor"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_login"
+        style="@style/CustomTextInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/your_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_password">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="58dp"
+            android:ellipsize="end"
+            android:hint="@string/put_login"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/item_text_color"
+            android:textCursorDrawable="@drawable/custom_cursor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_apply"
@@ -70,6 +142,5 @@
         app:layout_goneMarginBottom="@dimen/dp24"
         android:layout_marginHorizontal="@dimen/dp16"
         android:text = "@string/create"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
