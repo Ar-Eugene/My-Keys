@@ -59,6 +59,16 @@ class NewGroupViewModel @Inject constructor(
         _emailName.value = email
     }
 
+    // Функция для установки Password группы
+    fun setPasswordName(email: String) {
+        _emailName.value = email
+    }
+
+    // Функция для установки Login группы
+    fun setLoginName(email: String) {
+        _emailName.value = email
+    }
+
     // Функция для создания группы
     fun createGroup() {
         val imageGroup = _selectedImageUri.value

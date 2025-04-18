@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mykeys.databinding.FragmentNewGroupBinding
 import com.example.mykeys.newGroup.presentation.viewmodel.NewGroupViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,8 +66,7 @@ class NewGroupFragment : Fragment() {
 
         observereateGroupViewModel()
         clickListener()
-        setupNameTextChangeListener()
-        setupEmailTextChangeListener()
+        setupAllTextListeners()
     }
 
     // хранятся все clickListener
@@ -119,27 +119,36 @@ class NewGroupFragment : Fragment() {
         }
     }
 
-    // Слушатель для изменения текста в поле имени
-    private fun setupNameTextChangeListener() {
-        binding.nameCategory.editText?.addTextChangedListener(
-            onTextChanged = { text, _, _, _ ->
-                val searchText = text.toString()
-                viewModel.setGroupName(searchText)
-            }
-        )
+    // Метод для настройки всех текстовых полей
+    private fun setupAllTextListeners() {
+        setupTextChangeListener(binding.nameCategory) { text ->
+            viewModel.setGroupName(text)
+        }
 
+        setupTextChangeListener(binding.txtEmail) { text ->
+            viewModel.setEmailName(text)
+        }
+
+        setupTextChangeListener(binding.txtPassword) { text ->
+            viewModel.setPasswordName(text)
+        }
+
+        setupTextChangeListener(binding.txtLogin) { text ->
+            viewModel.setLoginName(text)
+        }
     }
 
-    // Добавьте этот метод в onViewCreated или создайте отдельный метод
-    private fun setupEmailTextChangeListener() {
-        binding.txtEmail.editText?.addTextChangedListener(
+    // Универсальный метод для установки TextWatcher на любое поле
+    private fun setupTextChangeListener(
+        textInputLayout: TextInputLayout,
+        onTextChanged: (String) -> Unit
+    ) {
+        textInputLayout.editText?.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
-                val emailText = text.toString()
-                viewModel.setEmailName(emailText)
+                onTextChanged(text.toString())
             }
         )
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
