@@ -7,8 +7,16 @@
     <string name="enter_your_request">Искать мой раздел\n</string>
     <string name="create">Создать</string>
     <string name="create_section">Создать раздел</string>
-    <string name="name_section">Название раздела</string>
+    <string name="name_section">Название категории</string>
     <string name="delete_chapter">Удалить раздел</string>
     <string name="cancel">Отменить</string>
     <string name="my_fab">my_fab</string>
+    <string name="put_email">Введите электронную почту</string>
+    <string name="your_password">Ваш пароль</string>
+    <string name="your_login">Ваш логин (если имеется)</string>
+    <string name="put_login">Введите логин</string>
+    <string name="your_email">Ваша электронная почта (если имеется)</string>
+    <string name="put_password">Введите пароль</string>
+    <string name="put_category">Введите название категории</string>
+    <string name="txt_email">"Электнонная почта "</string>
 </resources>

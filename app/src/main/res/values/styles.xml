@@ -35,7 +35,7 @@
 
     <style name="RoundedImageViewStyle">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -47,6 +47,21 @@
         <item name="android:textColorHint">@color/black</item>
     </style>
 
-
+    <style name="CustomTextInputLayout2" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_marginTop">@dimen/dp16</item>
+        <item name="boxCollapsedPaddingTop">@dimen/dp8</item>
+        <item name="android:textColorHint">@color/fab_color</item>
+        <item name="hintTextColor">@color/fab_color</item>
+        <item name="boxBackgroundColor">@color/card_item_color</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/dp12</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dp12</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dp12</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dp12</item>
+        <item name="boxStrokeColor">@android:color/transparent</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="expandedHintEnabled">false</item>
+        <item name="android:layout_marginHorizontal">@dimen/dp16</item>
+    </style>
 
 </resources>

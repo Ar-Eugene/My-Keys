@@ -101,7 +101,7 @@ class NewGroupFragment : Fragment() {
     // перехода на MainFragment через btnApply и создание группы
     private fun btnApplyNavigationToMainFragment() {
         binding.btnApply.setOnClickListener {
-            val name = (binding.name.editText as? TextInputEditText)?.text.toString()
+            val name = (binding.nameCategory.editText as? TextInputEditText)?.text.toString()
             if (name.isNotBlank()) {
                 viewModel.createGroup()
                 findNavController().navigateUp()
@@ -121,7 +121,7 @@ class NewGroupFragment : Fragment() {
 
     // Слушатель для изменения текста в поле имени
     private fun setupNameTextChangeListener() {
-        binding.name.editText?.addTextChangedListener(
+        binding.nameCategory.editText?.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
                 val searchText = text.toString()
                 viewModel.setGroupName(searchText)
