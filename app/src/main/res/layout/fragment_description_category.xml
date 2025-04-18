@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/borderHeaderGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint = "@color/black"
+        app:tint = "@color/fab_color"
         app:srcCompat="@drawable/back_arrow_model" />
 
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="56dp" />
+        app:layout_constraintGuide_begin="36dp" />
 
     <ImageView
         android:id="@+id/cover"
@@ -51,8 +51,18 @@
         app:layout_constraintTop_toBottomOf="@+id/cover"
         app:boxStrokeColor="@color/selector_edit"/>
 
-
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/my_fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_70dp"
+        android:layout_marginEnd="@dimen/dp16"
+        android:src="@drawable/ic_create"
+        app:backgroundTint="@color/fab_color"
+        app:tint="@android:color/white"
+        app:fabCustomSize="@dimen/_64dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

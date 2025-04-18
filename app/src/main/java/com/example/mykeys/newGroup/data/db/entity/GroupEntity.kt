@@ -9,5 +9,8 @@ data class GroupEntity(
     val id:Int = 0,
     val imageGroup:String? = null,
     val nameGroup:String,
+    val emailGroup: String?,
+    val passwordGroup: String?,
+    val loginGroup: String?,
     val position: Int = 0
 )

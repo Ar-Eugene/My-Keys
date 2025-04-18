@@ -66,7 +66,7 @@ class NewGroupFragment : Fragment() {
         observereateGroupViewModel()
         clickListener()
         setupNameTextChangeListener()
-
+        setupEmailTextChangeListener()
     }
 
     // хранятся все clickListener
@@ -128,6 +128,16 @@ class NewGroupFragment : Fragment() {
             }
         )
 
+    }
+
+    // Добавьте этот метод в onViewCreated или создайте отдельный метод
+    private fun setupEmailTextChangeListener() {
+        binding.txtEmail.editText?.addTextChangedListener(
+            onTextChanged = { text, _, _, _ ->
+                val emailText = text.toString()
+                viewModel.setEmailName(emailText)
+            }
+        )
     }
 
     override fun onDestroyView() {

@@ -81,6 +81,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
         fun bind(group: GroupModel) {
             binding.companyName.text = group.nameGroup
+            binding.txtNameEmail.text = group.emailGroup
             /// Загрузка изображения с помощью Glide
             if (group.imageGroup == null) {
                 binding.companyIcon.setImageResource(R.drawable.placeholder_32px)
