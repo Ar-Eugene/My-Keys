@@ -9,5 +9,8 @@ data class GroupModel(
     val id:Int = 0,
     val imageGroup: Uri? = null,
     val nameGroup:String,
+    val emailGroup: String?,
+    val passwordGroup: String?,
+    val loginGroup: String?,
     val position: Int = 0
 ): Parcelable

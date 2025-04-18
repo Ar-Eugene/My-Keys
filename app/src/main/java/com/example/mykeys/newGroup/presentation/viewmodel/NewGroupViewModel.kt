@@ -25,6 +25,17 @@ class NewGroupViewModel @Inject constructor(
     // Для хранения имени группы
     private val _groupName = MutableStateFlow("")
 
+    // Для хранения email группы
+    private val _emailName = MutableStateFlow("")
+
+    // Для хранения пароля группы
+    private val _passwordName = MutableStateFlow("")
+
+    // Для хранения логин группы
+    private val _loginName = MutableStateFlow("")
+
+
+
     init {
         viewModelScope.launch {
             groupInteractor.getGroup().collect { categories ->
@@ -43,15 +54,25 @@ class NewGroupViewModel @Inject constructor(
         _groupName.value = name
     }
 
+    // Функция для установки email группы
+    fun setEmailName(email: String) {
+        _emailName.value = email
+    }
+
     // Функция для создания группы
     fun createGroup() {
         val imageGroup = _selectedImageUri.value
         val name = _groupName.value
-
+        val emailName = _emailName.value
+        val passwordName = _passwordName.value
+        val loginName = _loginName.value
         if (name.isNotBlank()) {
             val newGroup = GroupModel(
                 imageGroup = imageGroup,
-                nameGroup = name
+                nameGroup = name,
+                emailGroup = emailName,
+                passwordGroup = passwordName,
+                loginGroup = loginName
             )
 
             viewModelScope.launch {
