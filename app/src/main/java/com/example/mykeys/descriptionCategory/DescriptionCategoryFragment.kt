@@ -46,8 +46,21 @@ class DescriptionCategoryFragment : Fragment() {
     private fun displayGroupData() {
         val groupModel = args.groupModel
 
-        // Подставляем текст
+        // Name
         binding.nameCategory.text = groupModel?.nameGroup
+        binding.nameCategory.visibility = if (groupModel?.nameGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+
+        // Email
+        binding.emailCategory.text = groupModel?.emailGroup
+        binding.emailCategory.visibility = if (groupModel?.emailGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+
+        // Password
+        binding.passwordCategory.text = groupModel?.passwordGroup
+        binding.passwordCategory.visibility = if (groupModel?.passwordGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+
+        // Login
+        binding.loginCategory.text = groupModel?.loginGroup
+        binding.loginCategory.visibility = if (groupModel?.loginGroup.isNullOrBlank()) View.GONE else View.VISIBLE
 
         // Загрузка изображения
         loadGroupImage(groupModel?.imageGroup)
@@ -64,7 +77,7 @@ class DescriptionCategoryFragment : Fragment() {
             // Убираем фоновую рамку, если она есть
             binding.cover.background = null
         } else {
-            binding.cover.setImageResource(R.drawable.cover_placeholder)
+            binding.cover.setImageResource(R.drawable.placeholder_big)
         }
     }
 

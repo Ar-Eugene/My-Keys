@@ -33,8 +33,8 @@
         android:layout_marginTop="26dp"
         android:background="@drawable/dashed_border"
         android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:src="@drawable/cover_placeholder"
+        android:scaleType="centerInside"
+        android:src="@drawable/placeholder_big"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +45,61 @@
         android:id="@+id/name_category"
         style="@style/CustomTextInputLayout"
         android:layout_marginTop="@dimen/dp48"
-        android:hint="@string/name_section"
+        tools:hint="@string/name_section"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cover"
+        app:boxStrokeColor="@color/selector_edit"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_after_name"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="name_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/email_category"
+        style="@style/CustomTextInputLayout"
+        android:layout_marginTop="@dimen/dp16"
+        tools:hint="@string/name_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier_after_name"
+        app:boxStrokeColor="@color/selector_edit"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_after_email"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="email_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/password_category"
+        style="@style/CustomTextInputLayout"
+        android:layout_marginTop="@dimen/dp16"
+        tools:hint="@string/name_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier_after_email"
+        app:boxStrokeColor="@color/selector_edit"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_after_password"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="password_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/login_category"
+        style="@style/CustomTextInputLayout"
+        android:layout_marginTop="@dimen/dp16"
+        tools:hint="@string/name_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier_after_password"
         app:boxStrokeColor="@color/selector_edit"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

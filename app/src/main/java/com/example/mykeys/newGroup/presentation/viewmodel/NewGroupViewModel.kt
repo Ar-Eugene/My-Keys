@@ -60,13 +60,13 @@ class NewGroupViewModel @Inject constructor(
     }
 
     // Функция для установки Password группы
-    fun setPasswordName(email: String) {
-        _emailName.value = email
+    fun setPasswordName(password: String) {
+        _passwordName.value = password
     }
 
     // Функция для установки Login группы
-    fun setLoginName(email: String) {
-        _emailName.value = email
+    fun setLoginName(login: String) {
+        _loginName.value = login
     }
 
     // Функция для создания группы
