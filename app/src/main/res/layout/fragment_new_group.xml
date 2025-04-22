@@ -67,7 +67,7 @@
         style="@style/CustomTextInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_email"
+        android:hint="@string/your_email_if_have"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name_category">
@@ -111,7 +111,7 @@
         style="@style/CustomTextInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_login"
+        android:hint="@string/your_login_if_have"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_password">
