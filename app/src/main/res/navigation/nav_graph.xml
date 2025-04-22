@@ -31,14 +31,43 @@
         android:name="groupModel"
         app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
         app:nullable="true"/>
+        <action
+            android:id="@+id/action_descriptionCategoryFragment_to_newGroupFragment"
+            app:destination="@id/newGroupFragment">
+            <argument
+                android:name="groupModel"
+                app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
+                app:nullable="true"/>
+            <argument
+                android:name="isEditMode"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
         android:name="com.example.mykeys.newGroup.presentation.ui.NewGroupFragment"
         android:label="fragment_new_group"
         tools:layout="@layout/fragment_new_group" >
+        <argument
+            android:name="groupModel"
+            app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+        <argument
+            android:name="isEditMode"
+            app:argType="boolean"
+            android:defaultValue="false"/>
         <action
             android:id="@+id/action_newGroupFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_newGroupFragment_to_descriptionCategoryFragment"
+            app:destination="@id/descriptionCategoryFragment">
+            <argument
+                android:name="groupModel"
+                app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
+                app:nullable="true"/>
+        </action>
     </fragment>
 </navigation>

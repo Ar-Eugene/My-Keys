@@ -15,9 +15,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentNewGroupBinding
 import com.example.mykeys.newGroup.presentation.viewmodel.NewGroupViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,26 +31,23 @@ class NewGroupFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: NewGroupViewModel by viewModels()
+    private val args: NewGroupFragmentArgs by navArgs()
 
     // Регистрация лаунчера для выбора изображения
     private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
             uri?.let {
-                binding.cover.setImageURI(uri)
-                viewModel.setImageGroup(uri)
+                binding.cover.setImageURI(it)
+                viewModel.setImageGroup(it)
 
-                // Сохранить разрешения для URI
+                // ✅ Сохраняем разрешение
                 try {
                     requireContext().contentResolver.takePersistableUriPermission(
-                        uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        it,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
                     )
                 } catch (e: SecurityException) {
-                    Log.e(
-                        "NewGroupFragment",
-                        "Не удалось получить постоянное разрешение для URI: $uri",
-                        e
-                    )
+                    Log.e("NewGroupFragment", "Не удалось сохранить разрешение на URI: $it", e)
                 }
             }
         }
@@ -63,27 +63,73 @@ class NewGroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observereateGroupViewModel()
+        // Проверяем, находимся ли мы в режиме редактирования
+        args.groupModel?.let { groupModel ->
+            viewModel.loadGroupForEdit(groupModel)
+        }
+        observeViewModel()
         clickListener()
-        setupNameTextChangeListener()
-
+        setupAllTextListeners()
     }
 
     // хранятся все clickListener
     private fun clickListener() {
         backArrowNavigationToMainFragment()
-        btnApplyNavigationToMainFragment()
+        btnApplyAction()
         setupCoverClickListener()
     }
 
-    // наблюдаем за созданием группы
-    private fun observereateGroupViewModel() {
+    // наблюдаем за за данными ViewModel
+    private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.selectedImageUri.collect { uri ->
-                    uri?.let {
-                        binding.cover.setImageURI(it)
-                        binding.cover.background = null
+                launch {
+                    viewModel.selectedImageUri.collect { uri ->
+                        uri?.let {
+                            binding.cover.setImageURI(it)
+                            binding.cover.background = null
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.isEditMode.collect { isEditMode ->
+                        // Меняем текст кнопки в зависимости от режима
+                        binding.btnApply.text = if (isEditMode)
+                            getString(R.string.save) else getString(R.string.create)
+                    }
+                }
+
+                // Заполняем поля данными из ViewModel
+                launch {
+                    viewModel.groupName.collect { name ->
+                        if (binding.nameCategory.editText?.text.toString() != name) {
+                            binding.nameCategory.editText?.setText(name)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.emailName.collect { email ->
+                        if (binding.txtEmail.editText?.text.toString() != email) {
+                            binding.txtEmail.editText?.setText(email)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.passwordName.collect { password ->
+                        if (binding.txtPassword.editText?.text.toString() != password) {
+                            binding.txtPassword.editText?.setText(password)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.loginName.collect { login ->
+                        if (binding.txtLogin.editText?.text.toString() != login) {
+                            binding.txtLogin.editText?.setText(login)
+                        }
                     }
                 }
             }
@@ -98,13 +144,24 @@ class NewGroupFragment : Fragment() {
         }
     }
 
-    // перехода на MainFragment через btnApply и создание группы
-    private fun btnApplyNavigationToMainFragment() {
+    // перехода на MainFragment через btnApply и создание группы и тут же возврат на DescriptionCategoryFragment
+    private fun btnApplyAction() {
         binding.btnApply.setOnClickListener {
             val name = (binding.nameCategory.editText as? TextInputEditText)?.text.toString()
             if (name.isNotBlank()) {
-                viewModel.createGroup()
-                findNavController().navigateUp()
+                val updatedGroup = viewModel.createOrSaveGroup()
+
+                if (viewModel.isEditMode.value) {
+                    // Если в режиме редактирования, возвращаемся на экран описания
+                    updatedGroup?.let {
+                        findNavController().navigate(
+                            NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(it)
+                        )
+                    }
+                } else {
+                    // Если в режиме создания, возвращаемся на главный экран
+                    findNavController().navigateUp()
+                }
             } else {
                 Toast.makeText(requireContext(), "Введите название группы", Toast.LENGTH_SHORT)
                     .show()
@@ -115,23 +172,43 @@ class NewGroupFragment : Fragment() {
     // Слушатель для выбора изображения
     private fun setupCoverClickListener() {
         binding.cover.setOnClickListener {
-            pickImageLauncher.launch("image/*")
+            pickImageLauncher.launch(arrayOf("image/*"))
         }
     }
 
-    // Слушатель для изменения текста в поле имени
-    private fun setupNameTextChangeListener() {
-        binding.nameCategory.editText?.addTextChangedListener(
-            onTextChanged = { text, _, _, _ ->
-                val searchText = text.toString()
-                viewModel.setGroupName(searchText)
-            }
-        )
+    // Метод для настройки всех текстовых полей
+    private fun setupAllTextListeners() {
+        setupTextChangeListener(binding.nameCategory) { text ->
+            viewModel.setGroupName(text)
+        }
 
+        setupTextChangeListener(binding.txtEmail) { text ->
+            viewModel.setEmailName(text)
+        }
+
+        setupTextChangeListener(binding.txtPassword) { text ->
+            viewModel.setPasswordName(text)
+        }
+
+        setupTextChangeListener(binding.txtLogin) { text ->
+            viewModel.setLoginName(text)
+        }
     }
 
+    // Универсальный метод для установки TextWatcher на любое поле
+    private fun setupTextChangeListener(
+        textInputLayout: TextInputLayout,
+        onTextChanged: (String) -> Unit
+    ) {
+        textInputLayout.editText?.addTextChangedListener(
+            onTextChanged = { text, _, _, _ ->
+                onTextChanged(text.toString())
+            }
+        )
+    }
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.resetState() // Сбрасываем состояние при уничтожении вида
         _binding = null
     }
 

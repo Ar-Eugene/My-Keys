@@ -27,4 +27,8 @@ class GroupRepositoryImpl @Inject constructor(
         groupDao.deleteGroupById(id)
     }
 
+    override suspend fun updateGroup(group: GroupModel) {
+        groupDao.updateGroup(groupDbConverter.mapModelToEntity(group))
+    }
+
 }

@@ -13,10 +13,15 @@
     <string name="my_fab">my_fab</string>
     <string name="put_email">Введите электронную почту</string>
     <string name="your_password">Ваш пароль</string>
-    <string name="your_login">Ваш логин (если имеется)</string>
+    <string name="your_login_if_have">Ваш логин (если имеется)</string>
+    <string name="your_login">Ваш логин</string>
     <string name="put_login">Введите логин</string>
-    <string name="your_email">Ваша электронная почта (если имеется)</string>
+    <string name="your_email_if_have">Ваша электронная почта (если имеется)</string>
+    <string name="your_email">Ваша электронная почта</string>
     <string name="put_password">Введите пароль</string>
     <string name="put_category">Введите название категории</string>
     <string name="txt_email">"Электнонная почта "</string>
+    <string name="save">Сохранить</string>
+    <string name="category">Категория</string>
+    <string name="password">Ваш пароль</string>
 </resources>
