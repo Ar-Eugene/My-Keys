@@ -63,7 +63,9 @@
             app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_newGroupFragment_to_descriptionCategoryFragment"
-            app:destination="@id/descriptionCategoryFragment">
+            app:destination="@id/descriptionCategoryFragment"
+            app:popUpTo="@id/descriptionCategoryFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="groupModel"
                 app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
