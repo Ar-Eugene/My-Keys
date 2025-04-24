@@ -39,8 +39,6 @@ class NewGroupFragment : Fragment() {
             uri?.let {
                 binding.cover.setImageURI(it)
                 viewModel.setImageGroup(it)
-
-                // ✅ Сохраняем разрешение
                 try {
                     requireContext().contentResolver.takePersistableUriPermission(
                         it,
