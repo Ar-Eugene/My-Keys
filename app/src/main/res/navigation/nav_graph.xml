@@ -3,71 +3,122 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/authStartFragment">
+
+    <fragment
+        android:id="@+id/authStartFragment"
+        android:name="com.example.mykeys.password.AuthStartFragment"
+        android:label="fragment_auth_start"
+        tools:layout="@layout/fragment_auth_start">
+        <action
+            android:id="@+id/action_authStartFragment_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
+        <action
+            android:id="@+id/action_authStartFragment_to_enterPasswordFragment"
+            app:destination="@id/enterPasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="com.example.mykeys.password.CreatePasswordFragment"
+        android:label="fragment_create_password"
+        tools:layout="@layout/fragment_create_password">
+        <action
+            android:id="@+id/action_createPasswordFragment_to_enterPasswordFragment"
+            app:destination="@id/enterPasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterPasswordFragment"
+        android:name="com.example.mykeys.password.EnterPasswordFragment"
+        android:label="fragment_enter_password"
+        tools:layout="@layout/fragment_enter_password">
+        <action
+            android:id="@+id/action_enterPasswordFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_enterPasswordFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.mykeys.main.presentation.ui.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_newGroupFragment"
             app:destination="@id/newGroupFragment" />
         <action
             android:id="@+id/action_mainFragment_to_descriptionCategoryFragment"
-            app:destination="@id/descriptionCategoryFragment" >
-        <argument
-            android:name="groupModel"
-            app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
-            app:nullable="true"/>
+            app:destination="@id/descriptionCategoryFragment">
+            <argument
+                android:name="groupModel"
+                app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
+                app:nullable="true" />
         </action>
     </fragment>
+
     <fragment
         android:id="@+id/descriptionCategoryFragment"
         android:name="com.example.mykeys.descriptionCategory.DescriptionCategoryFragment"
         android:label="fragment_description_category"
         tools:layout="@layout/fragment_description_category">
-    <argument
-        android:name="groupModel"
-        app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
-        app:nullable="true"/>
+        <argument
+            android:name="groupModel"
+            app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
+            app:nullable="true" />
         <action
             android:id="@+id/action_descriptionCategoryFragment_to_newGroupFragment"
             app:destination="@id/newGroupFragment">
             <argument
                 android:name="groupModel"
                 app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
-                app:nullable="true"/>
+                app:nullable="true" />
             <argument
                 android:name="isEditMode"
-                app:argType="boolean"
-                android:defaultValue="false"/>
+                android:defaultValue="false"
+                app:argType="boolean" />
         </action>
     </fragment>
+
     <fragment
         android:id="@+id/newGroupFragment"
         android:name="com.example.mykeys.newGroup.presentation.ui.NewGroupFragment"
         android:label="fragment_new_group"
-        tools:layout="@layout/fragment_new_group" >
+        tools:layout="@layout/fragment_new_group">
         <argument
             android:name="groupModel"
+            android:defaultValue="@null"
             app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
-            app:nullable="true"
-            android:defaultValue="@null"/>
+            app:nullable="true" />
         <argument
             android:name="isEditMode"
-            app:argType="boolean"
-            android:defaultValue="false"/>
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_newGroupFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_newGroupFragment_to_descriptionCategoryFragment"
-            app:destination="@id/descriptionCategoryFragment">
+            app:destination="@id/descriptionCategoryFragment"
+            app:popUpTo="@id/descriptionCategoryFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="groupModel"
                 app:argType="com.example.mykeys.newGroup.domain.models.GroupModel"
-                app:nullable="true"/>
+                app:nullable="true" />
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.mykeys.password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_enterPasswordFragment"
+            app:destination="@id/enterPasswordFragment" />
     </fragment>
 </navigation>
