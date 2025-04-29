@@ -26,11 +26,24 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // разрешить crashlytics
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = true
+            }
+
+        }
+        debug {
+            applicationIdSuffix = ".debug"
+            isMinifyEnabled = false
+            // отключить сбор crash-логов
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+            }
         }
     }
     compileOptions {
@@ -88,5 +101,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
 
+    // шифрование
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
 }

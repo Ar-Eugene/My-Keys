@@ -60,7 +60,7 @@ class ChangePasswordFragment : Fragment() {
             if (newPassword != confirmPassword) {
                 Toast.makeText(
                     requireContext(),
-                    "Новый пароль и подтверждени nне совпадают",
+                    "Новый пароль и подтверждение не совпадают",
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener

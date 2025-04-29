@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:layout_weight="1"
-        android:text="Удалить раздел? (5)"
+        android:text="Удалить категорию? (5)"
         android:textSize="@dimen/sp16"/>
 
     <TextView
