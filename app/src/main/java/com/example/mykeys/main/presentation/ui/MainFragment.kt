@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
         )
     }
 
-    // отображаем наш список в recycler
+    // отображаем список в recycler
     private fun setupRecyclerView() {
         groupAdapter = GroupAdapter()
         binding.recycler.apply {

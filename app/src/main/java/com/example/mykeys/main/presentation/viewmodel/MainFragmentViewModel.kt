@@ -26,8 +26,7 @@ class MainFragmentViewModel @Inject constructor(
     val allGroups: StateFlow<List<GroupModel>> = _allGroups
 
     private val _filterGroups = MutableLiveData<List<GroupModel>>(emptyList())
-    val filterGroups:LiveData<List<GroupModel>> = _filterGroups
-
+    val filterGroups: LiveData<List<GroupModel>> = _filterGroups
 
     init {
         loadGroups()
@@ -49,11 +48,11 @@ class MainFragmentViewModel @Inject constructor(
         filterGroups(text)
     }
 
-    private fun filterGroups (text: String){
-        if(text.isEmpty()){
+    private fun filterGroups(text: String) {
+        if (text.isEmpty()) {
             // если запрос пустой все группы
             _filterGroups.value = _allGroups.value
-        }else{
+        } else {
             _filterGroups.value = _allGroups.value.filter { group ->
                 group.nameGroup.contains(text, ignoreCase = true)
             }

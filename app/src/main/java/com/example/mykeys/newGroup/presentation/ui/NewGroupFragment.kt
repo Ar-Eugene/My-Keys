@@ -134,7 +134,6 @@ class NewGroupFragment : Fragment() {
         }
     }
 
-
     // перехода на MainFragment через backArrow
     private fun backArrowNavigationToMainFragment() {
         binding.backArrow.setOnClickListener {
@@ -153,7 +152,9 @@ class NewGroupFragment : Fragment() {
                     // Если в режиме редактирования, возвращаемся на экран описания
                     updatedGroup?.let {
                         findNavController().navigate(
-                            NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(it)
+                            NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(
+                                it
+                            )
                         )
                     }
                 } else {
@@ -161,7 +162,7 @@ class NewGroupFragment : Fragment() {
                     findNavController().navigateUp()
                 }
             } else {
-                Toast.makeText(requireContext(), "Введите название группы", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Введите название категории", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -204,6 +205,7 @@ class NewGroupFragment : Fragment() {
             }
         )
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.resetState() // Сбрасываем состояние при уничтожении вида

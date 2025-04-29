@@ -6,6 +6,8 @@ plugins {
     id ("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -24,11 +26,24 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // разрешить crashlytics
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = true
+            }
+
+        }
+        debug {
+            applicationIdSuffix = ".debug"
+            isMinifyEnabled = false
+            // отключить сбор crash-логов
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+            }
         }
     }
     compileOptions {
@@ -80,5 +95,13 @@ dependencies {
     // hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+
+    // шифрование
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
 }

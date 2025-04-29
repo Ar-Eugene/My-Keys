@@ -44,6 +44,7 @@ class DescriptionCategoryFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
     private fun setupEditButton() {
         binding.btnFab.setOnClickListener {
             args.groupModel?.let { groupModel ->
@@ -57,24 +58,29 @@ class DescriptionCategoryFragment : Fragment() {
             }
         }
     }
+
     private fun displayGroupData() {
         val groupModel = args.groupModel
 
         // передаем Name через args
         binding.nameCategory.text = groupModel?.nameGroup
-        binding.nameCategoryContainer.visibility = if (groupModel?.nameGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+        binding.nameCategoryContainer.visibility =
+            if (groupModel?.nameGroup.isNullOrBlank()) View.GONE else View.VISIBLE
 
         // передаем Email через args
         binding.emailCategory.text = groupModel?.emailGroup
-        binding.emailCategoryContainer.visibility = if (groupModel?.emailGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+        binding.emailCategoryContainer.visibility =
+            if (groupModel?.emailGroup.isNullOrBlank()) View.GONE else View.VISIBLE
 
         // передаем Password через args
         binding.passwordCategory.text = groupModel?.passwordGroup
-        binding.passwordCategoryContainer.visibility = if (groupModel?.passwordGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+        binding.passwordCategoryContainer.visibility =
+            if (groupModel?.passwordGroup.isNullOrBlank()) View.GONE else View.VISIBLE
 
         // передаем Login через args
         binding.loginCategory.text = groupModel?.loginGroup
-        binding.loginCategoryContainer.visibility = if (groupModel?.loginGroup.isNullOrBlank()) View.GONE else View.VISIBLE
+        binding.loginCategoryContainer.visibility =
+            if (groupModel?.loginGroup.isNullOrBlank()) View.GONE else View.VISIBLE
 
         // Загрузка изображения
         loadGroupImage(groupModel?.imageGroup)

@@ -11,5 +11,5 @@ interface GroupInteractor {
 
     suspend fun deleteGroupById(id: Int)
 
-    suspend fun updateGroup (group: GroupModel)
+    suspend fun updateGroup(group: GroupModel)
 }

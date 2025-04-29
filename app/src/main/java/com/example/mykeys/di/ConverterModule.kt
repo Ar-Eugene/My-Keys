@@ -12,7 +12,6 @@ import dagger.hilt.components.SingletonComponent
 object ConverterModule {
 
     @Provides
-
     fun provideGroupConverter(): GroupDbConverter {
         return GroupDbConverter()
     }

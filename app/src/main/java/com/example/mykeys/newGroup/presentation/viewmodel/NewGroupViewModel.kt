@@ -107,9 +107,9 @@ class NewGroupViewModel @Inject constructor(
                 position = 0
             )
             viewModelScope.launch {
-                if(_isEditMode.value){
+                if (_isEditMode.value) {
                     groupInteractor.updateGroup(group)
-                }else{
+                } else {
                     groupInteractor.createGroup(group)
                 }
             }

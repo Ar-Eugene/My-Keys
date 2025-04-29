@@ -2,6 +2,8 @@ package com.example.mykeys.password
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,9 +12,18 @@ import javax.inject.Singleton
 class PasswordManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
-        PREF_NAME, Context.MODE_PRIVATE
-    )
+
+    // шифрование данных
+    private val sharedPreferences: SharedPreferences by lazy {
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        EncryptedSharedPreferences.create(
+            PREF_NAME,
+            masterKeyAlias,
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    }
 
     fun isPasswordSet(): Boolean {
         return sharedPreferences.contains(KEY_PASSWORD)
@@ -27,7 +38,7 @@ class PasswordManager @Inject constructor(
         return savedPassword == password
     }
 
-    fun savekeyWord(keyWord: String) {
+    fun saveKeyWord(keyWord: String) {
         sharedPreferences.edit().putString(KEY_Word, keyWord).apply()
     }
 
