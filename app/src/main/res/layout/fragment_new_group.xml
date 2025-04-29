@@ -22,13 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="36dp" />
+        app:layout_constraintGuide_begin="@dimen/dp36" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cover"
         android:layout_width="270dp"
         android:layout_height="270dp"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginHorizontal="@dimen/dp24"
         android:background="@drawable/dashed_border"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
@@ -49,17 +49,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cover"
         android:layout_marginTop="@dimen/dp24">
+
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="58dp"
             android:ellipsize="end"
             android:hint="@string/put_category"
             android:inputType="text"
+            android:minHeight="58dp"
             android:singleLine="true"
             android:textColor="@color/item_text_color"
             android:textColorHint="@color/item_text_color"
-            android:textCursorDrawable="@drawable/custom_cursor"/>
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:paddingTop="@dimen/_28dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +69,7 @@
         style="@style/CustomTextInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_email_if_have"
+        android:hint="@string/your_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name_category">
@@ -81,7 +83,8 @@
             android:singleLine="true"
             android:textColor="@color/item_text_color"
             android:textColorHint="@color/item_text_color"
-            android:textCursorDrawable="@drawable/custom_cursor"/>
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:paddingTop="@dimen/_28dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,12 +101,13 @@
             android:layout_height="wrap_content"
             android:minHeight="58dp"
             android:ellipsize="end"
-            android:hint="@string/put_password"
+            android:hint="@string/enter_password"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/item_text_color"
             android:textColorHint="@color/item_text_color"
-            android:textCursorDrawable="@drawable/custom_cursor"/>
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:paddingTop="@dimen/_28dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -111,7 +115,7 @@
         style="@style/CustomTextInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_login_if_have"
+        android:hint="@string/your_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_password">
@@ -125,7 +129,8 @@
             android:singleLine="true"
             android:textColor="@color/item_text_color"
             android:textColorHint="@color/item_text_color"
-            android:textCursorDrawable="@drawable/custom_cursor" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:paddingTop="@dimen/_28dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

@@ -2,11 +2,11 @@ package com.example.mykeys.password
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentCreatePasswordBinding
@@ -34,13 +34,14 @@ class CreatePasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonCreatePassword.setOnClickListener {
-            val password = binding.editTextPassword.text.toString()
-            val confirmPassword = binding.editTextConfirmPassword.text.toString()
-            val keyWord = binding.editTextConfirmKeyword.text.toString()
+        binding.btnCreatePassword.setOnClickListener {
+            val password = binding.edtPassword.text.toString()
+            val confirmPassword = binding.edtConfirmPassword.text.toString()
+            val keyWord = binding.edtConfirmKeyword.text.toString()
 
             if (password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Пароль не может быть пустым", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Пароль не может быть пустым", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -49,8 +50,12 @@ class CreatePasswordFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if(keyWord.isEmpty()){
-                Toast.makeText(requireContext(), "Должно быть указано ключевое слово", Toast.LENGTH_SHORT).show()
+            if (keyWord.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Должно быть указано ключевое слово",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
@@ -58,7 +63,7 @@ class CreatePasswordFragment : Fragment() {
             passwordManager.savePassword(password)
 
             // Сохраняем пароль
-            passwordManager.savekeyWord(keyWord)
+            passwordManager.saveKeyWord(keyWord)
             Log.d("PasswordManager", "Saved keyword: $keyWord")
 
             // Переходим на экран ввода пароля

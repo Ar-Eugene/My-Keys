@@ -24,6 +24,7 @@ object DataModule {
             "group_database"
         ).build()
     }
+
     @Provides
     @Singleton
     fun getDao(database: GroupDatabase): GroupDao {

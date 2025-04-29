@@ -27,7 +27,7 @@ class PasswordManager @Inject constructor(
         return savedPassword == password
     }
 
-    fun savekeyWord(keyWord: String) {
+    fun saveKeyWord(keyWord: String) {
         sharedPreferences.edit().putString(KEY_Word, keyWord).apply()
     }
 

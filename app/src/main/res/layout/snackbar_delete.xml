@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp"
+    android:padding="@dimen/dp16"
     android:gravity="center_vertical"
     android:background="@color/snack_background_color">
 
@@ -14,7 +14,7 @@
         android:textColor="@color/white"
         android:layout_weight="1"
         android:text="Удалить раздел? (5)"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/sp16"/>
 
     <TextView
         android:id="@+id/snackbar_cancel"
@@ -23,6 +23,6 @@
         android:text="ОТМЕНИТЬ"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:paddingHorizontal="8dp"
-        android:textSize="14sp" />
+        android:paddingHorizontal="@dimen/dp8"
+        android:textSize="@dimen/_14sp" />
 </LinearLayout>

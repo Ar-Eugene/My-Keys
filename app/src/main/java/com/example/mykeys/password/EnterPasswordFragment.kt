@@ -1,11 +1,11 @@
 package com.example.mykeys.password
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mykeys.R
 import com.example.mykeys.databinding.FragmentEnterPasswordBinding
@@ -33,8 +33,8 @@ class EnterPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonEnterPassword.setOnClickListener {
-            val password = binding.editTextPassword.text.toString()
+        binding.btnEnterPassword.setOnClickListener {
+            val password = binding.edtPassword.text.toString()
 
             if (password.isEmpty()) {
                 Toast.makeText(requireContext(), "Введите пароль", Toast.LENGTH_SHORT).show()
@@ -49,7 +49,7 @@ class EnterPasswordFragment : Fragment() {
             }
         }
 
-        binding.changePassword.setOnClickListener{
+        binding.changePassword.setOnClickListener {
             findNavController().navigate(R.id.action_enterPasswordFragment_to_changePasswordFragment)
         }
     }

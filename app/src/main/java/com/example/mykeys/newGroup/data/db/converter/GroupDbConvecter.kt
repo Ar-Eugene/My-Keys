@@ -11,7 +11,7 @@ class GroupDbConverter {
             id = groupEntity.id,
             imageGroup = groupEntity.imageGroup?.let { Uri.parse(it) },
             nameGroup = groupEntity.nameGroup,
-            emailGroup =groupEntity.emailGroup,
+            emailGroup = groupEntity.emailGroup,
             passwordGroup = groupEntity.passwordGroup,
             loginGroup = groupEntity.loginGroup,
             position = groupEntity.position
@@ -23,13 +23,12 @@ class GroupDbConverter {
             id = groupModel.id,
             imageGroup = groupModel.imageGroup?.toString(),
             nameGroup = groupModel.nameGroup,
-            emailGroup =groupModel.emailGroup,
+            emailGroup = groupModel.emailGroup,
             passwordGroup = groupModel.passwordGroup,
             loginGroup = groupModel.loginGroup,
             position = groupModel.position
         )
     }
-
 
     fun mapEntityListToModelList(entities: List<GroupEntity>): List<GroupModel> {
         return entities.map { mapEntityToModel(it) }

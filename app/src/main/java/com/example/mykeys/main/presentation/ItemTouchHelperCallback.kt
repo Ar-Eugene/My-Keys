@@ -75,6 +75,7 @@ class ItemTouchHelperCallback(
             view.translationX = 0f
         }
     }
+
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -124,7 +125,6 @@ class ItemTouchHelperCallback(
                 it.draw(c)
             }
         }
-
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
