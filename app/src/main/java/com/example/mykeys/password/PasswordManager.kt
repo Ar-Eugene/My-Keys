@@ -10,6 +10,7 @@ import javax.inject.Singleton
 class PasswordManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
+
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
         PREF_NAME, Context.MODE_PRIVATE
     )
