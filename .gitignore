@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Gradle properties (contains sensitive info)
+gradle.properties
+/app/release/baselineProfiles/0/app-release.dm
+/app/release/baselineProfiles/1/app-release.dm
+/et --hard d5c8a96
+/app/release/output-metadata.json

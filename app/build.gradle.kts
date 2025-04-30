@@ -24,6 +24,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(properties["MY_KEYSTORE_FILE"] as String)
+            storePassword = properties["MY_KEYSTORE_PASSWORD"] as String
+            keyAlias = properties["MY_KEY_ALIAS"] as String
+            keyPassword = properties["MY_KEY_PASSWORD"] as String
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -35,7 +44,7 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true
             }
-
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             applicationIdSuffix = ".debug"

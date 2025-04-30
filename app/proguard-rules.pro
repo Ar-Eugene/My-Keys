@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# Не удалять FragmentContainerView
+-keep class androidx.fragment.app.FragmentContainerView { *; }
+
+# Не удалять твои фрагменты
+-keep class com.example.mykeys.** { *; }
+
+# Общее правило для AndroidX
+-keep class androidx.** { *; }
+-dontwarn androidx.**
