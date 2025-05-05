@@ -183,6 +183,7 @@ class NewGroupFragment : Fragment() {
 
         setupTextChangeListener(binding.txtEmail) { text ->
             viewModel.setEmailName(text)
+            //validateEmail(text)
         }
 
         setupTextChangeListener(binding.txtPassword) { text ->
@@ -191,6 +192,18 @@ class NewGroupFragment : Fragment() {
 
         setupTextChangeListener(binding.txtLogin) { text ->
             viewModel.setLoginName(text)
+        }
+    }
+
+    // проверяем, чтобы емаил отвечал требования email
+    private fun validateEmail(email: String) {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val isValid = email.matches(emailPattern.toRegex())
+        
+        if (email.isNotEmpty() && !isValid) {
+            binding.txtEmail.error = "Введите корректный email"
+        } else {
+            binding.txtEmail.error = null
         }
     }
 
