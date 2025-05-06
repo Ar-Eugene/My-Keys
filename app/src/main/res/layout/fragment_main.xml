@@ -8,26 +8,34 @@
     android:fitsSystemWindows="true"
     tools:context=".main.presentation.ui.MainFragment">
 
-    <EditText
-        android:id="@+id/edittext_search"
-        style="@style/EditSearchTextStyle"
+    <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="@dimen/dp8"
         android:layout_marginHorizontal="@dimen/dp16"
-        android:minHeight="@dimen/dp56"
-        android:hint="@string/enter_your_request"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/button_clear"
-        style="@style/EditSearchClearButton"
-        android:layout_width="@dimen/dp40"
-        android:layout_height="@dimen/dp40"
-        android:layout_marginEnd="@dimen/dp4"
-        app:layout_constraintBottom_toBottomOf="@id/edittext_search"
-        app:layout_constraintEnd_toEndOf="@id/edittext_search"
-        app:layout_constraintTop_toTopOf="@id/edittext_search" />
+        <EditText
+            android:id="@+id/edittext_search"
+            style="@style/EditSearchTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingEnd="@dimen/dp36"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:minHeight="@dimen/dp56"
+            android:hint="@string/enter_your_request" />
+
+        <ImageButton
+            android:id="@+id/button_clear"
+            style="@style/EditSearchClearButton"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="-40dp" />
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -36,7 +44,7 @@
         android:layout_marginTop="@dimen/dp16"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edittext_search"
+        app:layout_constraintTop_toBottomOf="@id/search_container"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="-20dp">
 
@@ -62,5 +70,4 @@
         app:backgroundTint="@color/fab_color"
         app:tint="@android:color/white"
         app:fabCustomSize="@dimen/_64dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

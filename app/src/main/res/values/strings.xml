@@ -33,4 +33,8 @@
     <string name="greate_password">Создайте пароль для защиты ваших данных</string>
     <string name="enter_keyword">Введите ключевое слово</string>
     <string name="create_password">Создать пароль</string>
+    <string name="error_email">Введите адрес почты вида Ivan@mail.ru</string>
+    <string name="emailPattern">[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+</string>
+    <string name="error_email2">Введен некорректный email</string>
+    <string name="error_password_too_short">Пароль должен содержать не менее 5 символов</string>
 </resources>

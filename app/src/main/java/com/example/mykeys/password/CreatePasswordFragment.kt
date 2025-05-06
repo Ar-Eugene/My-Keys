@@ -39,39 +39,47 @@ class CreatePasswordFragment : Fragment() {
             val confirmPassword = binding.edtConfirmPassword.text.toString()
             val keyWord = binding.edtConfirmKeyword.text.toString()
 
-            if (password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Пароль не может быть пустым", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
+            var isValid = true
+
+            // Проверка длины пароля
+            if (password.isEmpty() || password.length < 5) {
+                binding.edtPassword.error = getString(R.string.error_password_too_short)
+                isValid = false
+            } else {
+                binding.edtPassword.error = null
             }
 
-            if (password != confirmPassword) {
-                Toast.makeText(requireContext(), "Пароли не совпадают", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            // Проверка повторного пароля
+            if (confirmPassword.isEmpty()) {
+                binding.edtConfirmPassword.error = "Повторите пароль"
+                isValid = false
+            } else if (password != confirmPassword) {
+                binding.edtConfirmPassword.error = "Пароли не совпадают"
+                isValid = false
+            } else {
+                binding.edtConfirmPassword.error = null
             }
 
+            // Проверка ключевого слова
             if (keyWord.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Должно быть указано ключевое слово",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
+                binding.edtConfirmKeyword.error = "Укажите ключевое слово"
+                isValid = false
+            } else {
+                binding.edtConfirmKeyword.error = null
             }
 
-            // Сохраняем пароль
-            passwordManager.savePassword(password)
+            if (!isValid) return@setOnClickListener
 
-            // Сохраняем пароль
+            // Сохраняем данные
+            passwordManager.savePassword(password)
             passwordManager.saveKeyWord(keyWord)
             Log.d("PasswordManager", "Saved keyword: $keyWord")
 
-            // Переходим на экран ввода пароля
+            // Навигация
             findNavController().navigate(R.id.action_createPasswordFragment_to_enterPasswordFragment)
         }
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

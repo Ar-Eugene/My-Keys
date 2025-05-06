@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
     // Firebase запускается только в релизной версии
     private fun startFirebase() {
         if (!BuildConfig.DEBUG) {
@@ -50,66 +49,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-//    // уведомление о новой версии
-//    private fun checkForUpdate() {
-//        val remoteConfig = Firebase.remoteConfig
-//        val configSettings = remoteConfigSettings {
-//            minimumFetchIntervalInSeconds = 3600
-//        }
-//        remoteConfig.setConfigSettingsAsync(configSettings)
-//        remoteConfig.setDefaultsAsync(mapOf("latest_version" to BuildConfig.VERSION_NAME))
-//
-//        remoteConfig.fetchAndActivate()
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    val latestVersion = remoteConfig.getString("latest_version")
-//                    val currentVersion = BuildConfig.VERSION_NAME
-//
-//                    if (latestVersion != currentVersion) {
-//                        showUpdateSnackbar()
-//                    }
-//                }
-//            }
-//    }
-//
-//    // наш Snackbar
-//    private fun showUpdateSnackbar() {
-//        val snackbarContainer = findViewById<FrameLayout>(R.id.snackbar_container)
-//
-//        val snackbar =
-//            Snackbar.make(snackbarContainer, "Доступна новая версия", Snackbar.LENGTH_LONG)
-//                .setAction("Обновить") {
-//                    val ruStoreUrl = "https://www.rustore.ru/catalog/app/com.example.mykeys"
-//                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ruStoreUrl))
-//                    startActivity(intent)
-//                }
-//        // закрываем через 5 секунд если ничего с ним не сделали
-//        snackbar.duration = 5000
-//
-//        // Переместить Snackbar под статус-бар
-//        val view = snackbar.view
-//        val params = view.layoutParams as FrameLayout.LayoutParams
-//        params.gravity = Gravity.TOP
-//        params.topMargin = getStatusBarHeight()
-//        view.layoutParams = params
-//
-//        // Цвета
-//        view.setBackgroundColor(ContextCompat.getColor(this, R.color.snack_background_color))
-//        val textView = view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-//        textView.setTextColor(ContextCompat.getColor(this, R.color.white))
-//
-//        val actionView =
-//            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
-//        actionView.setTextColor(ContextCompat.getColor(this, R.color.white))
-//
-//        snackbar.show()
-//    }
-//
-//    // Получение высоты статус-бара
-//    private fun getStatusBarHeight(): Int {
-//        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-//        return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0
-//    }
-
 }
