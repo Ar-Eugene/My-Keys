@@ -57,6 +57,19 @@
             tools:listitem="@layout/item_group" />
     </androidx.core.widget.NestedScrollView>
 
+    <ImageView
+        android:id="@+id/iv_placeholder_main"
+        android:layout_width="328dp"
+        android:layout_height="224dp"
+        android:contentDescription="fgfg"
+        android:scaleType="centerInside"
+        android:src="@drawable/empty_plasholder"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_container" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_fab"
         android:layout_width="wrap_content"
