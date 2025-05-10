@@ -18,8 +18,8 @@ android {
         applicationId = "com.example.mykeys"
         minSdk = 28
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -109,7 +109,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-config")
 
     // шифрование
     implementation("androidx.security:security-crypto:1.1.0-alpha06")

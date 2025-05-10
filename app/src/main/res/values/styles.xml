@@ -3,7 +3,7 @@
     <style name="EditSearchTextStyle">
         <item name="android:singleLine">true</item>
         <item name="android:paddingStart">@dimen/dp16</item>
-        <item name="android:paddingEnd">@dimen/dp48</item>
+        <item name="android:paddingEnd">@dimen/dp16</item>
         <item name="android:paddingTop">@dimen/dp18</item>
         <item name="android:paddingBottom">@dimen/dp18</item>
         <item name="android:background">@drawable/shape_edit_text</item>
