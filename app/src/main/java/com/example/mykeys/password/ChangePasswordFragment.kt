@@ -43,7 +43,7 @@ class ChangePasswordFragment : Fragment() {
         }
 
         // Добавляем слушатель потери фокуса у edtConfirmPassword
-        binding.edtChangePassword.setOnFocusChangeListener { _, hasFocus ->
+        binding.edtConfirmChangePassword.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 validConfirmPassword()
             }
@@ -120,7 +120,7 @@ class ChangePasswordFragment : Fragment() {
         } else {
             binding.edtChangePassword.error = null
         }
-        return isValid
+        return true
     }
 
     // валидация на равенство confirmPassword с newPassword

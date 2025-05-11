@@ -100,7 +100,7 @@ class CreatePasswordFragment : Fragment() {
     // валидация на длину
     private fun validatePasswordLength(): Boolean {
         val newPassword = binding.edtPassword.text.toString()
-        var isValid = newPassword.length <= 5
+        var isValid = newPassword.length >= 5
 
         if (newPassword.isNotEmpty() && !isValid) {
             binding.edtPassword.error = getString(R.string.error_password_too_short)
@@ -108,7 +108,7 @@ class CreatePasswordFragment : Fragment() {
         } else {
             binding.edtPassword.error = null
         }
-        return isValid
+        return true
     }
 
     // валидация на равенство confirmPassword с password
