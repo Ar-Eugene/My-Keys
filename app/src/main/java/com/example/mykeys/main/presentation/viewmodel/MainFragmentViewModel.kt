@@ -28,6 +28,15 @@ class MainFragmentViewModel @Inject constructor(
     private val _filterGroups = MutableLiveData<List<GroupModel>>(emptyList())
     val filterGroups: LiveData<List<GroupModel>> = _filterGroups
 
+    // StateFlow для отслеживания видимости поискового контейнера
+    private val _isSearchContainerVisible = MutableStateFlow(false)
+    val isSearchContainerVisible: StateFlow<Boolean> = _isSearchContainerVisible
+
+    // StateFlow для отслеживания видимости плейсхолдера
+    private val _isPlaceholderVisible = MutableStateFlow(false)
+    val isPlaceholderVisible: StateFlow<Boolean> = _isPlaceholderVisible
+
+
     init {
         loadGroups()
     }
@@ -37,7 +46,10 @@ class MainFragmentViewModel @Inject constructor(
             groupInteractor.getGroup().collect { groupList ->
                 _allGroups.value = groupList
                 filterGroups(_searchText.value ?: "")
-
+                // Обновляем видимость поискового контейнера
+                _isSearchContainerVisible.value = groupList.size >= 3
+                // Обновляем видимость плейсхолдера
+                _isPlaceholderVisible.value = groupList.isEmpty()
             }
         }
     }
@@ -57,6 +69,8 @@ class MainFragmentViewModel @Inject constructor(
                 group.nameGroup.contains(text, ignoreCase = true)
             }
         }
+        // Обновляем видимость плейсхолдера после фильтрации
+        _isPlaceholderVisible.value = _filterGroups.value.isNullOrEmpty()
     }
 
     // Функция для удаления раздела

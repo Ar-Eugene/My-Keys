@@ -55,6 +55,8 @@ class MainFragment : Fragment() {
         setupRecyclerView()
         observeSearchTextWatcher()
         observeGroups()
+        observeSearchContainerVisibility()
+        observePlaceholderVisibility()
         setupClearButton()
 
         groupAdapter.setOnItemSwipedListener { group, position ->
@@ -128,6 +130,28 @@ class MainFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.filterGroups.observe(viewLifecycleOwner) { groups ->
                     groupAdapter.submitList(groups)
+                }
+            }
+        }
+    }
+
+    // Наблюдение за видимостью поискового контейнера
+    private fun observeSearchContainerVisibility() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isSearchContainerVisible.collect { isVisible ->
+                    binding.searchContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+                }
+            }
+        }
+    }
+
+    // Наблюдение за видимостью плейсхолдера
+    private fun observePlaceholderVisibility() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isPlaceholderVisible.collect { isVisible ->
+                    binding.imPlaceholderMain.visibility = if (isVisible) View.VISIBLE else View.GONE
                 }
             }
         }
