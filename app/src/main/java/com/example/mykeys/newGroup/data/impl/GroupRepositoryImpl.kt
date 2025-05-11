@@ -31,4 +31,8 @@ class GroupRepositoryImpl @Inject constructor(
         groupDao.updateGroup(groupDbConverter.mapModelToEntity(group))
     }
 
+    override suspend fun isGroupNameExists(name: String, currentId: Int): Boolean {
+        return groupDao.isGroupNameExists(name, currentId) > 0
+    }
+
 }

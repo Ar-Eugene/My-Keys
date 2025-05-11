@@ -58,11 +58,11 @@
             android:hint="@string/put_category"
             android:inputType="text"
             android:minHeight="58dp"
+            android:paddingTop="@dimen/_28dp"
             android:singleLine="true"
             android:textColor="@color/item_text_color"
             android:textColorHint="@color/item_text_color"
-            android:textCursorDrawable="@drawable/custom_cursor"
-            android:paddingTop="@dimen/_28dp"/>
+            android:textCursorDrawable="@drawable/custom_cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

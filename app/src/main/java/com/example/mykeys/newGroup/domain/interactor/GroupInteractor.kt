@@ -12,4 +12,6 @@ interface GroupInteractor {
     suspend fun deleteGroupById(id: Int)
 
     suspend fun updateGroup(group: GroupModel)
+
+    suspend fun isGroupNameExists(name: String, currentId: Int = 0): Boolean
 }

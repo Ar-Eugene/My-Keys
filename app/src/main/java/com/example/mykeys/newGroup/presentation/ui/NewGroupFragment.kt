@@ -145,25 +145,49 @@ class NewGroupFragment : Fragment() {
     private fun btnApplyAction() {
         binding.btnApply.setOnClickListener {
             val name = (binding.nameCategory.editText as? TextInputEditText)?.text.toString()
-            if (name.isNotBlank()) {
-                val updatedGroup = viewModel.createOrSaveGroup()
+            val email = (binding.txtEmail.editText as? TextInputEditText)?.text.toString()
 
+            // Проверяем имя категории
+            if (name.isBlank()) {
+                Toast.makeText(requireContext(), "Введите название категории", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
+
+            // Проверяем email, если он не пустой
+            if (email.isNotEmpty() && !validateEmail(email)) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.error_email2),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            // Если все проверки пройдены, создаем или сохраняем группу
+            lifecycleScope.launch {
+                val updatedGroup = viewModel.createOrSaveGroup()
+                if (updatedGroup == null) {
+                    // Если группа не создана из-за дублирования имени
+                    Toast.makeText(
+                        requireContext(),
+                        "Группа с таким именем уже существует",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@launch
+                }
+                
                 if (viewModel.isEditMode.value) {
                     // Если в режиме редактирования, возвращаемся на экран описания
-                    updatedGroup?.let {
-                        findNavController().navigate(
-                            NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(
-                                it
-                            )
+                    findNavController().navigate(
+                        NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(
+                            updatedGroup
                         )
-                    }
+                    )
                 } else {
                     // Если в режиме создания, возвращаемся на главный экран
                     findNavController().navigateUp()
                 }
-            } else {
-                Toast.makeText(requireContext(), "Введите название категории", Toast.LENGTH_SHORT)
-                    .show()
             }
         }
     }
@@ -183,7 +207,7 @@ class NewGroupFragment : Fragment() {
 
         setupTextChangeListener(binding.txtEmail) { text ->
             viewModel.setEmailName(text)
-            //validateEmail(text)
+            validateEmail(text)
         }
 
         setupTextChangeListener(binding.txtPassword) { text ->
@@ -195,15 +219,23 @@ class NewGroupFragment : Fragment() {
         }
     }
 
-    // проверяем, чтобы емаил отвечал требования email
-    private fun validateEmail(email: String) {
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    // проверяем, чтобы email отвечал требованиям формата email
+    private fun validateEmail(email: String): Boolean {
+        val emailPattern = getString(R.string.emailPattern)
         val isValid = email.matches(emailPattern.toRegex())
-        
+
         if (email.isNotEmpty() && !isValid) {
-            binding.txtEmail.error = "Введите корректный email"
+            binding.txtEmail.error = getString(R.string.error_email)
+            binding.txtEmail.setErrorTextColor(
+                resources.getColorStateList(
+                    R.color.delete_group_color,
+                    null
+                )
+            )
+            return false
         } else {
             binding.txtEmail.error = null
+            return true
         }
     }
 

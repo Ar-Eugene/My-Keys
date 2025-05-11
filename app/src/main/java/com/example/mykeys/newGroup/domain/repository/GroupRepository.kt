@@ -13,4 +13,6 @@ interface GroupRepository {
 
     suspend fun updateGroup(group: GroupModel)
 
+    suspend fun isGroupNameExists(name: String, currentId: Int = 0): Boolean
+
 }

@@ -27,4 +27,8 @@ class GroupInteractorImpl @Inject constructor(
         return groupRepository.updateGroup(group)
     }
 
+    override suspend fun isGroupNameExists(name: String, currentId: Int): Boolean {
+        return groupRepository.isGroupNameExists(name, currentId)
+    }
+
 }
