@@ -165,19 +165,29 @@ class NewGroupFragment : Fragment() {
             }
 
             // Если все проверки пройдены, создаем или сохраняем группу
-            val updatedGroup = viewModel.createOrSaveGroup()
-            if (viewModel.isEditMode.value) {
-                // Если в режиме редактирования, возвращаемся на экран описания
-                updatedGroup?.let {
+            lifecycleScope.launch {
+                val updatedGroup = viewModel.createOrSaveGroup()
+                if (updatedGroup == null) {
+                    // Если группа не создана из-за дублирования имени
+                    Toast.makeText(
+                        requireContext(),
+                        "Группа с таким именем уже существует",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@launch
+                }
+                
+                if (viewModel.isEditMode.value) {
+                    // Если в режиме редактирования, возвращаемся на экран описания
                     findNavController().navigate(
                         NewGroupFragmentDirections.actionNewGroupFragmentToDescriptionCategoryFragment(
-                            it
+                            updatedGroup
                         )
                     )
+                } else {
+                    // Если в режиме создания, возвращаемся на главный экран
+                    findNavController().navigateUp()
                 }
-            } else {
-                // Если в режиме создания, возвращаемся на главный экран
-                findNavController().navigateUp()
             }
         }
     }

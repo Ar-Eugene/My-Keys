@@ -90,13 +90,19 @@ class NewGroupViewModel @Inject constructor(
     }
 
     // Функция для создания и редактирования группы
-    fun createOrSaveGroup(): GroupModel? {
+    suspend fun createOrSaveGroup(): GroupModel? {
         val imageGroup = _selectedImageUri.value
         val name = _groupName.value
         val emailName = _emailName.value
         val passwordName = _passwordName.value
         val loginName = _loginName.value
+        
         if (name.isNotBlank()) {
+            // Проверяем существование группы с таким именем
+            if (groupInteractor.isGroupNameExists(name, currentGroupId ?: 0)) {
+                return null
+            }
+            
             val group = GroupModel(
                 id = currentGroupId ?: 0,
                 imageGroup = imageGroup,
@@ -106,12 +112,11 @@ class NewGroupViewModel @Inject constructor(
                 loginGroup = loginName,
                 position = 0
             )
-            viewModelScope.launch {
-                if (_isEditMode.value) {
-                    groupInteractor.updateGroup(group)
-                } else {
-                    groupInteractor.createGroup(group)
-                }
+            
+            if (_isEditMode.value) {
+                groupInteractor.updateGroup(group)
+            } else {
+                groupInteractor.createGroup(group)
             }
             return group
         }

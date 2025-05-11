@@ -22,4 +22,7 @@ interface GroupDao {
     @Update()
     suspend fun updateGroup(group: GroupEntity)
 
+    @Query("SELECT COUNT(*) FROM group_room WHERE LOWER(nameGroup) = LOWER(:name) AND id != :currentId")
+    suspend fun isGroupNameExists(name: String, currentId: Int = 0): Int
+
 }
