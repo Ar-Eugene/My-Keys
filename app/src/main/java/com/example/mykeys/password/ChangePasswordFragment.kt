@@ -54,13 +54,16 @@ class ChangePasswordFragment : Fragment() {
             val oldPassword = binding.edtOldPassword.text.toString()
             val newPassword = binding.edtChangePassword.text.toString()
             val confirmPassword = binding.edtConfirmChangePassword.text.toString()
+            val newKeyWord = binding.edtNewKeyword.text.toString()
 
-            if (!validateInputs(oldPassword, newPassword, confirmPassword)) {
+
+            if (!validateInputs(oldPassword, newPassword, confirmPassword, newKeyWord)) {
                 return@setOnClickListener
             }
 
             passwordManager.savePassword(newPassword)
-            Toast.makeText(requireContext(), "Пароль успешно обновлен", Toast.LENGTH_SHORT).show()
+            passwordManager.saveKeyWord(newKeyWord)
+            Toast.makeText(requireContext(), "Данные успешно обновлены", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
 
@@ -73,9 +76,10 @@ class ChangePasswordFragment : Fragment() {
     private fun validateInputs(
         oldPassword: String,
         newPassword: String,
-        confirmPassword: String
+        confirmPassword: String,
+        newKeyWord:String
     ): Boolean {
-        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty() || newKeyWord.isEmpty()) {
             Toast.makeText(
                 requireContext(),
                 "Пожалуйста, заполните все поля",
