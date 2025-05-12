@@ -133,50 +133,7 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="email_category_container" />
 
-    <LinearLayout
-        android:id="@+id/password_category_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp16"
-        android:layout_marginTop="@dimen/dp16"
-        android:background="@drawable/bg_textview"
-        android:orientation="vertical"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_category_container">
 
-        <TextView
-            android:id="@+id/password_category_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
-            android:textColor="@color/fab_color"
-            android:textSize="@dimen/_14sp"
-            android:paddingStart="@dimen/dp8"
-            android:text="@string/password" />
-
-        <TextView
-            android:id="@+id/password_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp4"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:paddingStart="@dimen/dp16"
-            android:textSize="@dimen/sp16"
-            android:fontFamily ="@font/ys_display_regular"
-            app:fontWeight = "400"
-            tools:text="@string/password"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier_after_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="password_category_container" />
 
     <LinearLayout
         android:id="@+id/login_category_container"
@@ -189,7 +146,7 @@
         android:padding="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_category_container">
+        app:layout_constraintTop_toBottomOf="@+id/email_category_container">
 
         <TextView
             android:id="@+id/login_category_label"
@@ -214,6 +171,51 @@
             android:fontFamily ="@font/ys_display_regular"
             app:fontWeight = "400"
             tools:text="@string/your_login" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_after_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="login_category_container" />
+
+    <LinearLayout
+        android:id="@+id/password_category_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="@drawable/bg_textview"
+        android:orientation="vertical"
+        android:padding="@dimen/dp8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_category_container">
+
+        <TextView
+            android:id="@+id/password_category_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ys_display_medium"
+            android:textColor="@color/fab_color"
+            android:textSize="@dimen/_14sp"
+            android:paddingStart="@dimen/dp8"
+            android:text="@string/password" />
+
+        <TextView
+            android:id="@+id/password_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp4"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:paddingStart="@dimen/dp16"
+            android:textSize="@dimen/sp16"
+            android:fontFamily ="@font/ys_display_regular"
+            app:fontWeight = "400"
+            tools:text="@string/password"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
