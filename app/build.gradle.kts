@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
-    id ("kotlin-parcelize")
+    id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
@@ -64,7 +64,7 @@ android {
     }
     buildFeatures {
         compose = true
-        viewBinding=true
+        viewBinding = true
     }
 }
 
@@ -88,8 +88,8 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("androidx.core:core-ktx:1.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.8.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
@@ -112,4 +112,17 @@ dependencies {
 
     // шифрование
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+    // unit тест
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testImplementation("io.mockk:mockk:1.13.10") // MockK
+    testImplementation("com.google.truth:truth:1.4.2") // Truth
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // runTest  из-за коррутины
+
 }
+// для junit5
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
