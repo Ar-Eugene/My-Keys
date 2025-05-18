@@ -1,4 +1,4 @@
-package com.example.mykeys
+package com.example.mykeys.newGroup.domain.interactor
 
 import com.example.mykeys.newGroup.domain.interactor.impl.GroupInteractorImpl
 import com.example.mykeys.newGroup.domain.models.GroupModel
