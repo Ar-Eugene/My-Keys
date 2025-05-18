@@ -34,7 +34,4 @@ class GroupDbConverter {
         return entities.map { mapEntityToModel(it) }
     }
 
-    fun mapModelListToEntityList(models: List<GroupModel>): List<GroupEntity> {
-        return models.map { mapModelToEntity(it) }
-    }
 }
