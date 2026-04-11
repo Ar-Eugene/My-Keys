@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".newGroup.presentation.ui.NewGroupFragment">
 
+    <!-- Back Arrow -->
     <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
@@ -18,7 +19,21 @@
         app:srcCompat="@drawable/back_arrow_model"
         app:tint="@color/fab_color" />
 
+    <!-- Copy Symbol -->
+    <ImageView
+        android:id="@+id/copy_sympol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp36"
+        android:layout_marginTop="@dimen/dp16"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/borderHeaderGuideline"
+        app:srcCompat="@drawable/copy_symbol"
+        app:tint="@color/fab_color" />
 
+    <!-- Top Guideline -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/borderHeaderGuideline"
         android:layout_width="wrap_content"
@@ -26,6 +41,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="@dimen/dp36" />
 
+    <!-- Cover Image -->
     <ImageView
         android:id="@+id/cover"
         android:layout_width="270dp"
@@ -42,182 +58,243 @@
         app:layout_constraintTop_toBottomOf="@+id/borderHeaderGuideline"
         app:shapeAppearanceOverlay="@style/RoundedImageViewStyle" />
 
-    <LinearLayout
-        android:id="@+id/name_category_container"
+    <!-- Name Container with CheckBox -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/name_container_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="@dimen/dp16"
-        android:layout_marginTop="@dimen/dp16"
-        android:background="@drawable/bg_textview"
-        android:orientation="vertical"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cover"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/name_category_label"
+        <CheckBox
+            android:id="@+id/check_box_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
-            android:text="@string/category"
-            android:textColor="@color/fab_color"
-            android:textSize="@dimen/_14sp"
-            android:paddingStart="@dimen/dp8"/>
+            android:buttonTint="@color/fab_color"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/dp8" />
 
-        <TextView
-            android:id="@+id/name_category"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/name_category_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp4"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="@string/category"
-            android:textColor="@color/black"
-            android:paddingStart="@dimen/dp16"
-            android:textSize="@dimen/sp16"
-            android:fontFamily = "@font/ys_display_regular"
-            app:fontWeight = "400"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:background="@drawable/bg_textview"
+            android:padding="@dimen/dp8"
+            app:layout_constraintStart_toEndOf="@id/check_box_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier_after_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="name_category_container" />
+            <TextView
+                android:id="@+id/name_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/dp8"
+                android:text="@string/category"
+                android:textColor="@color/fab_color"
+                android:textSize="@dimen/_14sp" />
 
-    <LinearLayout
-        android:id="@+id/email_category_container"
+            <TextView
+                android:id="@+id/name_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp4"
+                android:paddingStart="@dimen/dp16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:fontFamily="@font/ys_display_regular"
+                app:fontWeight="400"
+                tools:text="@string/category" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Email Container with CheckBox -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/email_container_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp16"
         android:layout_marginTop="@dimen/dp16"
-        android:background="@drawable/bg_textview"
-        android:orientation="vertical"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dp16"
+        app:layout_constraintTop_toBottomOf="@id/name_container_wrapper"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_category_container">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/email_category_label"
+        <CheckBox
+            android:id="@+id/check_box_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
-            android:textColor="@color/fab_color"
-            android:textSize="@dimen/_14sp"
-            android:paddingStart="@dimen/dp8"
-            android:text="@string/your_email"/>
+            android:buttonTint="@color/fab_color"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/dp8" />
 
-        <TextView
-            android:id="@+id/email_category"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/email_category_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp4"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:paddingStart="@dimen/dp16"
-            android:textSize="@dimen/sp16"
-            android:fontFamily ="@font/ys_display_regular"
-            app:fontWeight = "400"
-            tools:text="@string/your_email"/>
+            android:orientation="vertical"
+            android:background="@drawable/bg_textview"
+            android:padding="@dimen/dp8"
+            app:layout_constraintStart_toEndOf="@id/check_box_email"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/email_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/dp8"
+                android:text="@string/your_email"
+                android:textColor="@color/fab_color"
+                android:textSize="@dimen/_14sp" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier_after_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="email_category_container" />
+            <TextView
+                android:id="@+id/email_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp4"
+                android:paddingStart="@dimen/dp16"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:fontFamily="@font/ys_display_regular"
+                app:fontWeight="400"
+                tools:text="@string/your_email" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-    <LinearLayout
-        android:id="@+id/login_category_container"
+    <!-- Login Container with CheckBox -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_container_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp16"
         android:layout_marginTop="@dimen/dp16"
-        android:background="@drawable/bg_textview"
-        android:orientation="vertical"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dp16"
+        app:layout_constraintTop_toBottomOf="@id/email_container_wrapper"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_category_container">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/login_category_label"
+        <CheckBox
+            android:id="@+id/check_box_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
-            android:textColor="@color/fab_color"
-            android:textSize="@dimen/_14sp"
-            android:paddingStart="@dimen/dp8"
-            android:text="@string/your_login" />
+            android:buttonTint="@color/fab_color"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/dp8" />
 
-        <TextView
-            android:id="@+id/login_category"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/login_category_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp4"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:paddingStart="@dimen/dp16"
-            android:textSize="@dimen/sp16"
-            android:fontFamily ="@font/ys_display_regular"
-            app:fontWeight = "400"
-            tools:text="@string/your_login" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:background="@drawable/bg_textview"
+            android:padding="@dimen/dp8"
+            app:layout_constraintStart_toEndOf="@id/check_box_login"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier_after_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="login_category_container" />
+            <TextView
+                android:id="@+id/login_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/dp8"
+                android:text="@string/your_login"
+                android:textColor="@color/fab_color"
+                android:textSize="@dimen/_14sp" />
 
-    <LinearLayout
-        android:id="@+id/password_category_container"
+            <TextView
+                android:id="@+id/login_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp4"
+                android:paddingStart="@dimen/dp16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:fontFamily="@font/ys_display_regular"
+                app:fontWeight="400"
+                tools:text="@string/your_login" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Password Container with CheckBox -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/password_container_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp16"
         android:layout_marginTop="@dimen/dp16"
-        android:background="@drawable/bg_textview"
-        android:orientation="vertical"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dp16"
+        app:layout_constraintTop_toBottomOf="@id/login_container_wrapper"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_category_container">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/password_category_label"
+        <CheckBox
+            android:id="@+id/check_box_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_medium"
-            android:textColor="@color/fab_color"
-            android:textSize="@dimen/_14sp"
-            android:paddingStart="@dimen/dp8"
-            android:text="@string/password" />
+            android:buttonTint="@color/fab_color"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/dp8" />
 
-        <TextView
-            android:id="@+id/password_category"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/password_category_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp4"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:paddingStart="@dimen/dp16"
-            android:textSize="@dimen/sp16"
-            android:fontFamily ="@font/ys_display_regular"
-            app:fontWeight = "400"
-            tools:text="@string/password"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:background="@drawable/bg_textview"
+            android:padding="@dimen/dp8"
+            app:layout_constraintStart_toEndOf="@id/check_box_password"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <TextView
+                android:id="@+id/password_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ys_display_medium"
+                android:paddingStart="@dimen/dp8"
+                android:text="@string/password"
+                android:textColor="@color/fab_color"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/password_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp4"
+                android:paddingStart="@dimen/dp16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:fontFamily="@font/ys_display_regular"
+                app:fontWeight="400"
+                tools:text="@string/password" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_fab"
         android:layout_width="wrap_content"

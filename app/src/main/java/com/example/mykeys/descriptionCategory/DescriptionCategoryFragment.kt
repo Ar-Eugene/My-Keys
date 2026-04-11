@@ -1,10 +1,16 @@
 package com.example.mykeys.descriptionCategory
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,6 +27,15 @@ class DescriptionCategoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: DescriptionCategoryFragmentArgs by navArgs()
+    private var selectedTextView: TextView? = null
+    private val checkBoxes by lazy {
+        listOf(
+            binding.checkBoxName to binding.nameCategory,
+            binding.checkBoxEmail to binding.emailCategory,
+            binding.checkBoxLogin to binding.loginCategory,
+            binding.checkBoxPassword to binding.passwordCategory
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +52,105 @@ class DescriptionCategoryFragment : Fragment() {
         setupBackButton()
         displayGroupData()
         setupEditButton()
+        setLongPressCopyListeners()
+        setupCopySymbolClick()
+        setLongPressToShowCheckBoxes()
+
+    }
+
+    private fun setLongPressCopyListeners() {
+        val longPressDuration = 1000L // 2 секунды
+
+        val textViews = listOf(
+            binding.nameCategory,
+            binding.emailCategory,
+            binding.loginCategory,
+            binding.passwordCategory
+        )
+
+        textViews.forEach { textView ->
+            textView.setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        v.tag = System.currentTimeMillis()
+                        v.postDelayed({
+                            if ((System.currentTimeMillis() - (v.tag as Long)) >= longPressDuration) {
+                                selectedTextView = v as TextView
+                                binding.copySympol.visibility = View.VISIBLE
+                            }
+                        }, longPressDuration)
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        v.removeCallbacks(null)
+                    }
+                }
+                false
+            }
+        }
+    }
+    private fun setLongPressToShowCheckBoxes() {
+        val longPressDuration = 500L
+
+        checkBoxes.forEach { (_, textView) ->
+            textView.setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        v.tag = System.currentTimeMillis()
+                        v.postDelayed({
+                            if ((System.currentTimeMillis() - (v.tag as Long)) >= longPressDuration) {
+                                showAllCheckBoxes()
+                            }
+                        }, longPressDuration)
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        v.removeCallbacks(null)
+                    }
+                }
+                false
+            }
+        }
+    }
+
+
+    private fun showAllCheckBoxes() {
+        var atLeastOneVisible = false
+
+        checkBoxes.forEach { (checkBox, textView) ->
+            if (!textView.text.isNullOrBlank()) {
+                checkBox.visibility = View.VISIBLE
+                checkBox.isChecked = false
+                atLeastOneVisible = true
+            } else {
+                checkBox.visibility = View.GONE
+            }
+        }
+
+        // Показываем иконку копирования только если есть что копировать
+        binding.copySympol.visibility = if (atLeastOneVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun setupCopySymbolClick() {
+        binding.copySympol.setOnClickListener {
+            val selectedTexts = checkBoxes
+                .filter { it.first.isChecked }
+                .map { it.second.text.toString() }
+                .filter { it.isNotBlank() }
+
+            if (selectedTexts.isNotEmpty()) {
+                val combinedText = selectedTexts.joinToString(separator = "\n")
+                val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Copied Text", combinedText)
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(requireContext(), "Скопировано:\n$combinedText", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Выберите хотя бы одно поле", Toast.LENGTH_SHORT).show()
+            }
+
+            // Скрываем чекбоксы и иконку
+            checkBoxes.forEach { it.first.visibility = View.GONE }
+            binding.copySympol.visibility = View.GONE
+        }
     }
 
     private fun setupBackButton() {
